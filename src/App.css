@@ -1,9 +1,10 @@
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+/* Para Chrome, Safari, Edge y Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para Firefox y compatibilidad general */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE y Edge viejo */
+  scrollbar-width: none;     /* Firefox y Chrome nuevo */
 }
