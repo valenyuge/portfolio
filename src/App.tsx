@@ -318,7 +318,7 @@ function App() {
       tecnologias: ["Unity", "Arduino", "Serial Com", "C#"],
       categoria: 'Multimedia',
       urlExterna: "https://github.com/valenyuge",
-      videoUrl: "/proyectos/influencers.mp4"
+      videoUrl: "/proyectos/influencia.mp4"
     },
     {
       id: "endless-runner-js",
