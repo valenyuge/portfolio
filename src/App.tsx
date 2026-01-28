@@ -19,9 +19,11 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
 
   if (!p) return <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center font-bold">Proyecto no encontrado</div>;
 
+  const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
+
   return (
     <div className="min-h-screen bg-slate-900 text-white p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto"> {/* Aumentamos un poco el ancho máximo */}
         <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors mb-12 inline-block font-bold">
           ← Volver a la grilla
         </Link>
@@ -33,8 +35,9 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
             <h1 className="text-5xl font-black mt-4 mb-6">{p.titulo}</h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* COLUMNA IZQUIERDA: TEXTO */}
+          <div className="lg:col-span-5 space-y-6">
             <h3 className="text-xl font-bold text-blue-400">Sobre el proyecto</h3>
             <p className="text-slate-300 text-lg leading-relaxed">{p.contenidoLargo}</p>
             
@@ -49,15 +52,49 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
 
             <div className="pt-8">
                 <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
-                   className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20">
+                   className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
                   VER REPOSITORIO / DEMO ↗
                 </a>
             </div>
           </div>
 
-          <div className="bg-slate-800/50 rounded-3xl border border-slate-700 p-4 aspect-video flex items-center justify-center italic text-slate-500">
-            {/* Aquí podés poner un <iframe> si tenés videoUrl o una <img> */}
-            [Espacio para Video o Galería de Imágenes]
+          {/* COLUMNA DERECHA: MULTIMEDIA (Ajustada) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-800/50 shadow-2xl w-full">
+              {p.videoUrl ? (
+                esVideoYoutube ? (
+                  <div className="aspect-video">
+                    <iframe 
+                      className="w-full h-full"
+                      src={p.videoUrl.replace("watch?v=", "embed/")} 
+                      title={p.titulo}
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) : (
+                  <video 
+                    className="w-full h-auto max-h-[70vh] object-contain bg-black" 
+                    controls 
+                    muted 
+                    loop
+                  >
+                    <source src={p.videoUrl} type="video/mp4" />
+                  </video>
+                )
+              ) : (
+                <img 
+                  src={`/proyectos/${p.id}.png`} 
+                  alt={p.titulo} 
+                  className="w-full h-auto object-cover"
+                  onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/1e293b/475569?text=Sin+Vista+Previa" }}
+                />
+              )}
+            </div>
+
+            {/* OPCIONAL: Espacio para más imágenes debajo del video si las tuvieras */}
+            <div className="grid grid-cols-2 gap-4">
+               {/* Aquí podrías mapear p.imagenes adicionales en el futuro */}
+            </div>
           </div>
         </div>
       </div>
@@ -126,7 +163,8 @@ function App() {
       contenidoLargo: "Desarrollo de un videojuego de realidad virtual para móviles. Implementación de un sistema de inputs no convencional mediante webcam externa para detectar el movimiento físico del usuario y trasladarlo al personaje en tiempo real.",
       tecnologias: ["Unity", "C#", "Motion Tracking", "OSC"],
       categoria: 'Videojuegos',
-      urlExterna: "https://github.com/valenyuge"
+      urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/VR.mp4"
     },
     {
       id: "win98",
@@ -135,7 +173,8 @@ function App() {
       contenidoLargo: "Programación de gestión del DOM para ventanas (popups) arrastrables, reloj en tiempo real, persistencia de datos de usuario y lógica de control para reproductores multimedia customizados.",
       tecnologias: ["JavaScript", "HTML", "CSS"],
       categoria: 'Web',
-      urlExterna: "https://github.com/valenyuge"
+      urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/Infografia-Windows.mp4"
     },
     {
       id: "audio-reactiva",
