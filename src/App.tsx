@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-r
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 
-// --- CONFIGURACIÓN DE IDIOMAS ---
+// --- CONFIGURACIÓN DE IDIOMAS --- 
 i18n.use(initReactI18next).init({
   resources: {
     es: {
