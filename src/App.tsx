@@ -202,7 +202,8 @@ function App() {
       contenidoLargo: "Programación de la comunicación entre sensores físicos (potenciómetro) y el software para la navegación, integrando lectura de códigos QR.",
       tecnologias: ["Unity", "Arduino", "Serial Com", "C#"],
       categoria: 'Multimedia',
-      urlExterna: "https://github.com/valenyuge"
+      urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
         id: "endless-runner-js",
@@ -211,7 +212,8 @@ function App() {
         contenidoLargo: "Implementación manual del Game Loop, detección de colisiones (AABB), gravedad y generación procedural de obstáculos, demostrando comprensión de la lógica base de videojuegos.",
         tecnologias: ["JavaScript", "Lógica de Juegos"],
         categoria: 'Videojuegos',
-        urlExterna: "https://github.com/valenyuge"
+        urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
         id: "arcade-versus",
@@ -220,7 +222,8 @@ function App() {
         contenidoLargo: "Gestión de temporizadores y sistema de puntuación. Sincronización de animaciones con eventos de lógica y control de interfaz de usuario (UI) para múltiples pantallas.",
         tecnologias: ["Unity", "C#"],
         categoria: 'Videojuegos',
-        urlExterna: "https://github.com/valenyuge"
+        urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
         id: "landing-vorterix",
@@ -229,7 +232,8 @@ function App() {
         contenidoLargo: "Enfoque Pixel Perfect respetando la identidad visual de la marca. Programación de lógica para captura y almacenamiento de datos de usuario.",
         tecnologias: ["HTML", "CSS", "JavaScript"],
         categoria: 'Web',
-        urlExterna: "https://github.com/valenyuge"
+        urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
         id: "redisenio-gato",
@@ -238,7 +242,8 @@ function App() {
         contenidoLargo: "Desarrollo de carruseles de imágenes y navegación por breadcrumbs. Optimización de la experiencia de usuario (UX) mediante scripts de interacción.",
         tecnologias: ["JavaScript", "UX", "HTML/CSS"],
         categoria: 'Web',
-        urlExterna: "https://github.com/valenyuge"
+        urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/elgatoylacaja.mp4"
     },
     {
         id: "todo-list",
@@ -247,7 +252,8 @@ function App() {
         contenidoLargo: "Aplicación de gestión de tareas con persistencia de datos, tipado fuerte y diseño moderno. Implementación de estados complejos en React.",
         tecnologias: ["React", "TypeScript", "Tailwind"],
         categoria: 'Web',
-        urlExterna: "https://github.com/valenyuge"
+        urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/obra-sonido.mp4"
     }
   ];
 
