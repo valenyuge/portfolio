@@ -192,7 +192,8 @@ function App() {
       contenidoLargo: "Creación de una obra generativa controlada por voz. Programación de algoritmos de análisis de frecuencia (tonos agudos/graves) para modificar variables visuales de dibujo y borrado en tiempo real.",
       tecnologias: ["Web Audio API", "Canvas", "JavaScript"],
       categoria: 'Multimedia',
-      urlExterna: "https://github.com/valenyuge"
+      urlExterna: "https://github.com/valenyuge",
+      videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
       id: "influencers-ia",
