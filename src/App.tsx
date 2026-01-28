@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
 
 interface Proyecto {
@@ -16,6 +17,14 @@ interface Proyecto {
 const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
   const { id } = useParams();
   const p = lista.find(proj => proj.id === id);
+
+  useEffect(() => {
+    if (p) {
+      document.title = `${p.titulo}`;
+    }
+    // Opcional: Volver al título original cuando salís de la pestaña
+    return () => { document.title = "Portfolio"; };
+  }, [p]);
 
   if (!p) return <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center font-bold">Proyecto no encontrado</div>;
 
