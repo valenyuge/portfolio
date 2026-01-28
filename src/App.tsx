@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
 
 interface Proyecto {
   id: string;
   titulo: string;
+  fechaInicio: string;
+  fechaFin: string;
   descripcion: string;
   contenidoLargo: string;
   tecnologias: string[];
@@ -22,7 +23,6 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
     if (p) {
       document.title = `${p.titulo}`;
     }
-    // Opcional: Volver al título original cuando salís de la pestaña
     return () => { document.title = "Portfolio"; };
   }, [p]);
 
@@ -45,7 +45,6 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* COLUMNA IZQUIERDA: TEXTO */}
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-xl font-bold text-blue-400">Sobre el proyecto</h3>
             <p className="text-slate-300 text-lg leading-relaxed">{p.contenidoLargo}</p>
@@ -67,7 +66,6 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: MULTIMEDIA (Ajustada) */}
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-800/50 shadow-2xl w-full">
               {p.videoUrl ? (
@@ -99,10 +97,7 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
                 />
               )}
             </div>
-
-            {/* OPCIONAL: Espacio para más imágenes debajo del video si las tuvieras */}
             <div className="grid grid-cols-2 gap-4">
-               {/* Aquí podrías mapear p.imagenes adicionales en el futuro */}
             </div>
           </div>
         </div>
@@ -114,7 +109,23 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
 // --- VISTA PRINCIPAL (GRILLA) ---
 const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const [filtro, setFiltro] = useState('Todos');
-  const filtrados = filtro === 'Todos' ? proyectos : proyectos.filter(p => p.categoria === filtro);
+
+  // Ordenamiento: El más nuevo primero
+  const proyectosOrdenados = [...proyectos].sort((a, b) => 
+    new Date(b.fechaFin).getTime() - new Date(a.fechaFin).getTime()
+  );
+
+  const formatearPeriodo = (inicio: string, fin: string) => {
+  // Función interna para dar vuelta la fecha: "2025-10" -> "10/2025"
+  const limpiar = (f: string) => f.split('-').reverse().join('/');
+  
+  if (inicio === fin) return limpiar(inicio);
+  return `${limpiar(inicio)} — ${limpiar(fin)}`;
+  };
+
+  const filtrados = filtro === 'Todos' 
+    ? proyectosOrdenados 
+    : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
     <div className="min-h-screen bg-slate-900 p-8 text-white font-sans">
@@ -146,7 +157,14 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
             to={`/proyecto/${p.id}`} 
             className="group block bg-slate-800 p-8 rounded-[2rem] border border-slate-700 hover:border-blue-500 transition-all duration-500 hover:-translate-y-3 shadow-xl"
           >
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 mb-4 block">{p.categoria}</span>
+                  <div className="flex justify-between items-start mb-4">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 block">
+            {p.categoria}
+          </span>
+          <span className="text-slate-500 text-[11px] font-bold">
+            {formatearPeriodo(p.fechaInicio, p.fechaFin)}
+          </span>
+        </div>
             <h2 className="text-2xl font-black mb-3 group-hover:text-blue-400 transition-colors">{p.titulo}</h2>
             <p className="text-slate-400 text-sm mb-8 leading-relaxed line-clamp-2">{p.descripcion}</p>
             <div className="flex flex-wrap gap-2 mb-8">
@@ -168,6 +186,8 @@ function App() {
     {
       id: "runner-vr",
       titulo: "Runner 3D VR Mobile",
+      fechaInicio: "2025-09",
+      fechaFin: "2025-12",
       descripcion: "Videojuego VR con sistema de inputs mediante webcam para detectar movimiento físico.",
       contenidoLargo: "Desarrollo de un videojuego de realidad virtual para móviles. Implementación de un sistema de inputs no convencional mediante webcam externa para detectar el movimiento físico del usuario y trasladarlo al personaje en tiempo real.",
       tecnologias: ["Unity", "C#", "Motion Tracking", "OSC"],
@@ -178,6 +198,8 @@ function App() {
     {
       id: "win98",
       titulo: "Infografía Interactiva 'Win98'",
+      fechaInicio: "2025-09",
+      fechaFin: "2025-09",
       descripcion: "Interfaz que simula un sistema operativo con ventanas arrastrables y lógica compleja.",
       contenidoLargo: "Programación de gestión del DOM para ventanas (popups) arrastrables, reloj en tiempo real, persistencia de datos de usuario y lógica de control para reproductores multimedia customizados.",
       tecnologias: ["JavaScript", "HTML", "CSS"],
@@ -188,6 +210,8 @@ function App() {
     {
       id: "audio-reactiva",
       titulo: "Experiencia Web Audio-Reactiva",
+      fechaInicio: "2025-04",
+      fechaFin: "2025-07",
       descripcion: "Obra generativa controlada por voz que analiza frecuencias en tiempo real.",
       contenidoLargo: "Creación de una obra generativa controlada por voz. Programación de algoritmos de análisis de frecuencia (tonos agudos/graves) para modificar variables visuales de dibujo y borrado en tiempo real.",
       tecnologias: ["Web Audio API", "Canvas", "JavaScript"],
@@ -198,6 +222,8 @@ function App() {
     {
       id: "influencers-ia",
       titulo: "Instalación 'Influencers IA'",
+      fechaInicio: "2025-09",
+      fechaFin: "2025-12",
       descripcion: "Lógica en Unity conectada a una instalación física con sensores Arduino.",
       contenidoLargo: "Programación de la comunicación entre sensores físicos (potenciómetro) y el software para la navegación, integrando lectura de códigos QR.",
       tecnologias: ["Unity", "Arduino", "Serial Com", "C#"],
@@ -208,52 +234,62 @@ function App() {
     {
         id: "endless-runner-js",
         titulo: "Juego 'Endless Runner' Web",
+        fechaInicio: "2024-09",
+        fechaFin: "2024-11",
         descripcion: "Motor de juego básico desarrollado desde cero con JavaScript puro.",
         contenidoLargo: "Implementación manual del Game Loop, detección de colisiones (AABB), gravedad y generación procedural de obstáculos, demostrando comprensión de la lógica base de videojuegos.",
         tecnologias: ["JavaScript", "Lógica de Juegos"],
         categoria: 'Videojuegos',
-        urlExterna: "https://github.com/valenyuge",
-      videoUrl: "/proyectos/obra-sonido.mp4"
+        urlExterna: "https://valenyuge.neocities.org/",
+        videoUrl: "/proyectos/runner-html.mp4"
     },
     {
         id: "arcade-versus",
         titulo: "Arcade Sincro Versus 1v1",
+        fechaInicio: "2024-09",
+        fechaFin: "2024-12",
         descripcion: "Game Manager central para control de estados y sistema de puntuación.",
         contenidoLargo: "Gestión de temporizadores y sistema de puntuación. Sincronización de animaciones con eventos de lógica y control de interfaz de usuario (UI) para múltiples pantallas.",
         tecnologias: ["Unity", "C#"],
         categoria: 'Videojuegos',
         urlExterna: "https://github.com/valenyuge",
-      videoUrl: "/proyectos/obra-sonido.mp4"
+        videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
         id: "landing-vorterix",
         titulo: "Landing Page 'Vorterix'",
+        fechaInicio: "2025-04",
+        fechaFin: "2025-05",
         descripcion: "Maquetación Full Responsive Pixel Perfect para captura de datos.",
         contenidoLargo: "Enfoque Pixel Perfect respetando la identidad visual de la marca. Programación de lógica para captura y almacenamiento de datos de usuario.",
         tecnologias: ["HTML", "CSS", "JavaScript"],
         categoria: 'Web',
         urlExterna: "https://github.com/valenyuge",
-      videoUrl: "/proyectos/obra-sonido.mp4"
+        videoUrl: "/proyectos/obra-sonido.mp4"
     },
     {
         id: "redisenio-gato",
         titulo: "Rediseño 'El Gato y la Caja'",
+        fechaInicio: "2025-07",
+        fechaFin: "2025-09",
         descripcion: "Refactorización de interfaz con componentes interactivos reutilizables.",
         contenidoLargo: "Desarrollo de carruseles de imágenes y navegación por breadcrumbs. Optimización de la experiencia de usuario (UX) mediante scripts de interacción.",
         tecnologias: ["JavaScript", "UX", "HTML/CSS"],
         categoria: 'Web',
         urlExterna: "https://github.com/valenyuge",
-      videoUrl: "/proyectos/elgatoylacaja.mp4"
+        videoUrl: "/proyectos/elgatoylacaja.mp4"
     },
     {
         id: "todo-list",
-        titulo: "To-Do List Profesional",
+        titulo: "To-Do List",
+        fechaInicio: "2026-01",
+        fechaFin: "2026-01",
         descripcion: "App de gestión de tareas con TypeScript y React.",
         contenidoLargo: "Aplicación de gestión de tareas con persistencia de datos, tipado fuerte y diseño moderno. Implementación de estados complejos en React.",
         tecnologias: ["React", "TypeScript", "Tailwind"],
         categoria: 'Web',
-        urlExterna: "https://github.com/valenyuge",
-      videoUrl: "/proyectos/obra-sonido.mp4"
+        urlExterna: "https://todolist-18e7.onrender.com/",
+        videoUrl: "/proyectos/to-do.mp4"
     }
   ];
 
