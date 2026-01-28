@@ -133,7 +133,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
         <h1 className="text-5xl font-black mb-4 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
           Valen Yuge
         </h1>
-        <p className="text-slate-400 text-lg">Multimedia Design Student @ UNLP | Creative Developer</p>
+        <p className="text-slate-400 text-lg">Multimedia Design Student @ UNLP | Developer</p>
       </header>
 
       <nav className="flex justify-center flex-wrap gap-3 mb-16">
@@ -265,7 +265,7 @@ function App() {
         tecnologias: ["HTML", "CSS", "JavaScript"],
         categoria: 'Web',
         urlExterna: "https://github.com/valenyuge",
-        videoUrl: "/proyectos/obra-sonido.mp4"
+        videoUrl: "/proyectos/vorterix.mp4"
     },
     {
         id: "redisenio-gato",
