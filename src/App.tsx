@@ -93,7 +93,9 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
             <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-blue-600/20 text-blue-400 rounded-full border border-blue-400/30">
                 {p.categoria}
             </span>
-            <h1 className="text-5xl font-black mt-4 mb-6">{p.titulo}</h1>
+            <h1 className="text-5xl font-black mt-4 mb-6">
+              {i18n.language === 'es' ? p.titulo : (p.titulo_en || p.titulo)}
+            </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -170,13 +172,27 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
       </header>
 
       <nav className="flex justify-center flex-wrap gap-3 mb-16">
-        {['Todos', 'Web', 'Videojuegos', 'Multimedia'].map(cat => (
-          <button key={cat} onClick={() => setFiltro(cat)} 
-            className={`px-8 py-3 rounded-full font-bold transition-all duration-300 ${filtro === cat ? 'bg-blue-600 shadow-xl shadow-blue-600/30 scale-110' : 'bg-slate-800 text-slate-500 hover:bg-slate-700'}`}
-          >
-            {cat === 'Todos' ? (i18n.language === 'es' ? 'Todos' : 'All') : cat}
-          </button>
-        ))}
+        {['Todos', 'Web', 'Videojuegos', 'Multimedia'].map(cat => {
+          // Definimos la traducción aquí mismo
+          const traducciones: any = {
+            'Todos': i18n.language === 'es' ? 'Todos' : 'All',
+            'Web': 'Web',
+            'Videojuegos': i18n.language === 'es' ? 'Videojuegos' : 'Games',
+            'Multimedia': i18n.language === 'es' ? 'Multimedia' : 'Multimedia'
+          };
+
+          return (
+            <button 
+              key={cat} 
+              onClick={() => setFiltro(cat)} 
+              className={`px-8 py-3 rounded-full font-bold transition-all duration-300 ${
+                  filtro === cat ? 'bg-blue-600 shadow-xl shadow-blue-600/30 scale-110' : 'bg-slate-800 text-slate-500 hover:bg-slate-700'
+              }`}
+            >
+              {traducciones[cat]}
+            </button>
+          );
+        })}
       </nav>
 
       <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
