@@ -1,37 +1,49 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
-// Importamos las herramientas de traducción
+// Importamos herramientas de traducción y el detector de idioma
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
-// --- CONFIGURACIÓN DE IDIOMAS --- 
-i18n.use(initReactI18next).init({
-  resources: {
-    es: {
-      translation: {
-        subtitulo: "Estudiante de Diseño Multimedial @ UNLP | Desarrollador",
-        volver: "← Volver a la grilla",
-        sobre: "Sobre el proyecto",
-        tech: "Tecnologías utilizadas",
-        ver_demo: "VER REPOSITORIO / DEMO ↗",
-        detalle_mas: "VER DETALLES +"
+// --- CONFIGURACIÓN DE IDIOMAS CON DETECCIÓN AUTOMÁTICA --- 
+i18n
+  .use(LanguageDetector) // Detecta el idioma del navegador automáticamente
+  .use(initReactI18next)
+  .init({
+    resources: {
+      es: {
+        translation: {
+          subtitulo: "Estudiante de Diseño Multimedial @ UNLP | Desarrollador",
+          volver: "← Volver a la grilla",
+          sobre: "Sobre el proyecto",
+          tech: "Tecnologías utilizadas",
+          ver_demo: "VER REPOSITORIO / DEMO ↗",
+          detalle_mas: "VER DETALLES +",
+          contacto_tit: "Contacto",
+          contacto_desc: "Estoy disponible para proyectos freelance y posiciones Junior."
+        }
+      },
+      en: {
+        translation: {
+          subtitulo: "Multimedia Design Student @ UNLP | Developer",
+          volver: "← Back to grid",
+          sobre: "About the project",
+          tech: "Technologies used",
+          ver_demo: "VIEW REPOSITORY / DEMO ↗",
+          detalle_mas: "VIEW DETAILS +",
+          contacto_tit: "Contact me",
+          contacto_desc: "Available for freelance projects and Junior positions."
+        }
       }
     },
-    en: {
-      translation: {
-        subtitulo: "Multimedia Design Student @ UNLP | Developer",
-        volver: "← Back to grid",
-        sobre: "About the project",
-        tech: "Technologies used",
-        ver_demo: "VIEW REPOSITORY / DEMO ↗",
-        detalle_mas: "VIEW DETAILS +"
-      }
-    }
-  },
-  lng: "es", // Idioma inicial
-  fallbackLng: "es",
-  interpolation: { escapeValue: false }
-});
+    fallbackLng: "es", // Si no detecta ES o EN, usa español
+    detection: {
+      // Prioridad: 1. URL, 2. LocalStorage, 3. Navegador
+      order: ['querystring', 'localStorage', 'navigator'],
+      caches: ['localStorage'], // Guarda la elección del usuario aquí
+    },
+    interpolation: { escapeValue: false }
+  });
 
 interface Proyecto {
   id: string;
@@ -40,27 +52,27 @@ interface Proyecto {
   fechaInicio: string;
   fechaFin: string;
   descripcion: string;
-  descripcion_en?: string; // Agregamos descripción en inglés
+  descripcion_en?: string;
   contenidoLargo: string;
-  contenidoLargo_en?: string; // Agregamos contenido largo en inglés
+  contenidoLargo_en?: string;
   tecnologias: string[];
   categoria: 'Web' | 'Videojuegos' | 'Multimedia';
   urlExterna: string;
   videoUrl?: string;
 }
 
-// --- COMPONENTE SELECTOR DE IDIOMA ---
+// --- COMPONENTE SELECTOR DE IDIOMA (Fijo arriba a la derecha) ---
 const SelectorIdioma = () => {
   const { i18n } = useTranslation();
   return (
     <div className="fixed top-6 right-8 z-50 flex items-center gap-1 bg-slate-800/80 backdrop-blur-md p-1 rounded-full border border-slate-700 shadow-xl">
       <button 
         onClick={() => i18n.changeLanguage('es')}
-        className={`px-3 py-1 rounded-full text-xs font-black transition-all ${i18n.language === 'es' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
+        className={`px-3 py-1 rounded-full text-xs font-black transition-all ${i18n.language.startsWith('es') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
       >ES</button>
       <button 
         onClick={() => i18n.changeLanguage('en')}
-        className={`px-3 py-1 rounded-full text-xs font-black transition-all ${i18n.language === 'en' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
+        className={`px-3 py-1 rounded-full text-xs font-black transition-all ${i18n.language.startsWith('en') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
       >EN</button>
     </div>
   );
@@ -94,7 +106,7 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
                 {p.categoria}
             </span>
             <h1 className="text-5xl font-black mt-4 mb-6">
-              {i18n.language === 'es' ? p.titulo : (p.titulo_en || p.titulo)}
+              {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h1>
         </div>
 
@@ -102,7 +114,7 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-xl font-bold text-blue-400">{t('sobre')}</h3>
             <p className="text-slate-300 text-lg leading-relaxed">
-                {i18n.language === 'es' ? p.contenidoLargo : (p.contenidoLargo_en || p.contenidoLargo)}
+                {i18n.language.startsWith('es') ? p.contenidoLargo : (p.contenidoLargo_en || p.contenidoLargo)}
             </p>
             
             <div className="pt-6">
@@ -173,21 +185,15 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
 
       <nav className="flex justify-center flex-wrap gap-3 mb-16">
         {['Todos', 'Web', 'Videojuegos', 'Multimedia'].map(cat => {
-          // Definimos la traducción aquí mismo
           const traducciones: any = {
-            'Todos': i18n.language === 'es' ? 'Todos' : 'All',
+            'Todos': i18n.language.startsWith('es') ? 'Todos' : 'All',
             'Web': 'Web',
-            'Videojuegos': i18n.language === 'es' ? 'Videojuegos' : 'Games',
-            'Multimedia': i18n.language === 'es' ? 'Multimedia' : 'Multimedia'
+            'Videojuegos': i18n.language.startsWith('es') ? 'Videojuegos' : 'Games',
+            'Multimedia': i18n.language.startsWith('es') ? 'Multimedia' : 'Multimedia'
           };
-
           return (
-            <button 
-              key={cat} 
-              onClick={() => setFiltro(cat)} 
-              className={`px-8 py-3 rounded-full font-bold transition-all duration-300 ${
-                  filtro === cat ? 'bg-blue-600 shadow-xl shadow-blue-600/30 scale-110' : 'bg-slate-800 text-slate-500 hover:bg-slate-700'
-              }`}
+            <button key={cat} onClick={() => setFiltro(cat)} 
+              className={`px-8 py-3 rounded-full font-bold transition-all duration-300 ${filtro === cat ? 'bg-blue-600 shadow-xl shadow-blue-600/30 scale-110' : 'bg-slate-800 text-slate-500 hover:bg-slate-700'}`}
             >
               {traducciones[cat]}
             </button>
@@ -205,51 +211,28 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               <span className="text-slate-500 text-[11px] font-bold">{formatearPeriodo(p.fechaInicio, p.fechaFin)}</span>
             </div>
             <h2 className="text-2xl font-black mb-3 group-hover:text-blue-400 transition-colors">
-              {i18n.language === 'es' ? p.titulo : (p.titulo_en || p.titulo)}
+              {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h2>
             <p className="text-slate-400 text-sm mb-8 leading-relaxed line-clamp-2">
-                {i18n.language === 'es' ? p.descripcion : (p.descripcion_en || p.descripcion)}
+                {i18n.language.startsWith('es') ? p.descripcion : (p.descripcion_en || p.descripcion)}
             </p>
             <div className="text-blue-500 text-xs font-black tracking-widest">{t('detalle_mas')}</div>
           </Link>
         ))}
       </main>
 
-{/* SECCIÓN DE CONTACTO */}
       <footer className="max-w-4xl mx-auto mt-32 mb-16 text-center border-t border-slate-800 pt-16">
-        <h2 className="text-3xl font-black mb-4">
-          {i18n.language === 'es' ? 'Contacto' : 'Contact me'}
-        </h2>
-        <p className="text-slate-400 mb-8">
-          {i18n.language === 'es' 
-            ? 'Estoy disponible para proyectos freelance y posiciones Junior.' 
-            : 'Available for freelance projects and Junior positions.'}
-        </p>
-        
+        <h2 className="text-3xl font-black mb-4">{t('contacto_tit')}</h2>
+        <p className="text-slate-400 mb-8">{t('contacto_desc')}</p>
         <div className="flex justify-center flex-wrap gap-6">
-          {/* Email - valentinyuge@gmail.com */}
-          <a href="mailto:valentinyuge@gmail.com" 
-             className="flex items-center gap-2 bg-slate-800 hover:bg-blue-600 px-6 py-3 rounded-2xl transition-all border border-slate-700">
-            <span>📧</span>
-            <span className="font-bold">Email</span>
+          <a href="mailto:valentinyuge@gmail.com" className="flex items-center gap-2 bg-slate-800 hover:bg-blue-600 px-6 py-3 rounded-2xl transition-all border border-slate-700">
+            <span>📧</span><span className="font-bold">Email</span>
           </a>
-
-          {/* LinkedIn - valentinyuge */}
-          <a href="https://linkedin.com/in/valentinyuge" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             className="flex items-center gap-2 bg-slate-800 hover:bg-blue-700 px-6 py-3 rounded-2xl transition-all border border-slate-700">
-            <span>🔗</span>
-            <span className="font-bold">LinkedIn</span>
+          <a href="https://linkedin.com/in/valentinyuge" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-800 hover:bg-blue-700 px-6 py-3 rounded-2xl transition-all border border-slate-700">
+            <span>🔗</span><span className="font-bold">LinkedIn</span>
           </a>
-
-          {/* GitHub - valenyuge */}
-          <a href="https://github.com/valenyuge" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-6 py-3 rounded-2xl transition-all border border-slate-700">
-            <span>🐙</span>
-            <span className="font-bold">GitHub</span>
+          <a href="https://github.com/valenyuge" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-6 py-3 rounded-2xl transition-all border border-slate-700">
+            <span>🐙</span><span className="font-bold">GitHub</span>
           </a>
         </div>
       </footer>
@@ -257,7 +240,6 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   );
 };
 
-// --- APP COMPONENT (con datos de ejemplo para inglés) ---
 function App() {
   const proyectos: Proyecto[] = [
     {
@@ -268,9 +250,9 @@ function App() {
       fechaFin: "2025-12",
       descripcion: "Videojuego VR con sistema de inputs mediante webcam para detectar movimiento físico.",
       descripcion_en: "VR Game with a webcam input system to detect physical movement.",
-      contenidoLargo: "Desarrollo de un videojuego de realidad virtual para móviles. Implementación de un sistema de inputs no convencional mediante webcam externa para detectar el movimiento físico del usuario y trasladarlo al personaje en tiempo real.",
-      contenidoLargo_en: "Mobile VR game development. Implementation of a non-conventional input system using an external webcam to detect the user's physical movement and translate it to the character in real-time.",
-      tecnologias: ["Unity", "C#", "Motion Tracking", "OSC"],
+      contenidoLargo: "Desarrollo de un videojuego de realidad virtual para móviles...",
+      contenidoLargo_en: "Mobile VR game development...",
+      tecnologias: ["Unity", "C#", "Motion Tracking"],
       categoria: 'Videojuegos',
       urlExterna: "https://github.com/valenyuge",
       videoUrl: "/proyectos/VR.mp4"
@@ -282,9 +264,9 @@ function App() {
       fechaInicio: "2025-09",
       fechaFin: "2025-09",
       descripcion: "Interfaz que simula un sistema operativo con ventanas arrastrables y lógica compleja.",
-      descripcion_en: "Interface simulating an operating system with draggable windows and complex logic.",
-      contenidoLargo: "Programación de gestión del DOM para ventanas (popups) arrastrables, reloj en tiempo real, persistencia de datos de usuario y lógica de control para reproductores multimedia customizados.",
-      contenidoLargo_en: "DOM management for draggable windows, real-time clock, user data persistence, and control logic for customized media players.",
+      descripcion_en: "Interface simulating an operating system with draggable windows.",
+      contenidoLargo: "Programación de gestión del DOM para ventanas (popups) arrastrables...",
+      contenidoLargo_en: "DOM management for draggable windows...",
       tecnologias: ["JavaScript", "HTML", "CSS"],
       categoria: 'Web',
       urlExterna: "https://github.com/valenyuge",
@@ -297,9 +279,9 @@ function App() {
       fechaInicio: "2025-04",
       fechaFin: "2025-08",
       descripcion: "Obra generativa controlada por voz que analiza frecuencias en tiempo real.",
-      descripcion_en: "Voice-controlled generative piece analyzing frequencies in real-time.",
-      contenidoLargo: "Creación de una obra generativa controlada por voz. Programación de algoritmos de análisis de frecuencia (tonos agudos/graves) para modificar variables visuales de dibujo y borrado en tiempo real.",
-      contenidoLargo_en: "Voice-controlled generative artwork. Frequency analysis algorithms (treble/bass) to modify visual drawing and erasing variables in real-time.",
+      descripcion_en: "Voice-controlled generative piece analyzing frequencies.",
+      contenidoLargo: "Creación de una obra generativa controlada por voz...",
+      contenidoLargo_en: "Voice-controlled generative artwork...",
       tecnologias: ["Web Audio API", "Canvas", "JavaScript"],
       categoria: 'Multimedia',
       urlExterna: "https://github.com/valenyuge",
@@ -313,9 +295,9 @@ function App() {
       fechaFin: "2025-12",
       descripcion: "Lógica en Unity conectada a una instalación física con sensores Arduino.",
       descripcion_en: "Unity logic connected to a physical installation with Arduino sensors.",
-      contenidoLargo: "Programación de la comunicación entre sensores físicos (potenciómetro) y el software para la navegación, integrando lectura de códigos QR.",
-      contenidoLargo_en: "Programming the communication between physical sensors (potentiometer) and the software for navigation, including QR code reading.",
-      tecnologias: ["Unity", "Arduino", "Serial Com", "C#"],
+      contenidoLargo: "Programación de la comunicación entre sensores físicos...",
+      contenidoLargo_en: "Programming the communication between physical sensors...",
+      tecnologias: ["Unity", "Arduino", "Serial Com"],
       categoria: 'Multimedia',
       urlExterna: "https://github.com/valenyuge",
       videoUrl: "/proyectos/influencia.mp4"
@@ -328,8 +310,8 @@ function App() {
       fechaFin: "2024-11",
       descripcion: "Motor de juego básico desarrollado desde cero con JavaScript puro.",
       descripcion_en: "Basic game engine developed from scratch with pure JavaScript.",
-      contenidoLargo: "Implementación manual del Game Loop, detección de colisiones (AABB), gravedad y generación procedural de obstáculos, demostrando comprensión de la lógica base de videojuegos.",
-      contenidoLargo_en: "Manual implementation of the Game Loop, collision detection (AABB), gravity, and procedural obstacle generation.",
+      contenidoLargo: "Implementación manual del Game Loop, detección de colisiones...",
+      contenidoLargo_en: "Manual implementation of the Game Loop...",
       tecnologias: ["JavaScript", "Lógica de Juegos"],
       categoria: 'Videojuegos',
       urlExterna: "https://valenyuge.neocities.org/",
@@ -343,8 +325,8 @@ function App() {
       fechaFin: "2024-12",
       descripcion: "Game Manager central para control de estados y sistema de puntuación.",
       descripcion_en: "Central Game Manager for state control and scoring system.",
-      contenidoLargo: "Gestión de temporizadores y sistema de puntuación. Sincronización de animaciones con eventos de lógica y control de interfaz de usuario (UI) para múltiples pantallas.",
-      contenidoLargo_en: "Timer management and scoring system. Animation synchronization with logic events and UI control for multiple screens.",
+      contenidoLargo: "Gestión de temporizadores y sistema de puntuación...",
+      contenidoLargo_en: "Timer management and scoring system...",
       tecnologias: ["Unity", "C#"],
       categoria: 'Videojuegos',
       urlExterna: "https://github.com/valenyuge",
@@ -358,8 +340,8 @@ function App() {
       fechaFin: "2025-05",
       descripcion: "Maquetación Full Responsive Pixel Perfect para captura de datos.",
       descripcion_en: "Full Responsive Pixel Perfect layout for data capture.",
-      contenidoLargo: "Enfoque Pixel Perfect respetando la identidad visual de la marca. Programación de lógica para captura y almacenamiento de datos de usuario.",
-      contenidoLargo_en: "Pixel Perfect approach respecting brand identity. Programming logic for user data capture and storage.",
+      contenidoLargo: "Enfoque Pixel Perfect respetando la identidad visual de la marca...",
+      contenidoLargo_en: "Pixel Perfect approach respecting brand identity...",
       tecnologias: ["HTML", "CSS", "JavaScript"],
       categoria: 'Web',
       urlExterna: "https://github.com/valenyuge",
@@ -373,8 +355,8 @@ function App() {
       fechaFin: "2025-08",
       descripcion: "Refactorización de interfaz con componentes interactivos reutilizables.",
       descripcion_en: "Interface refactoring with reusable interactive components.",
-      contenidoLargo: "Desarrollo de carruseles de imágenes y navegación por breadcrumbs. Optimización de la experiencia de usuario (UX) mediante scripts de interacción.",
-      contenidoLargo_en: "Image carousel development and breadcrumb navigation. UX optimization through interaction scripts.",
+      contenidoLargo: "Desarrollo de carruseles de imágenes y navegación...",
+      contenidoLargo_en: "Image carousel development and breadcrumb navigation...",
       tecnologias: ["JavaScript", "UX", "HTML/CSS"],
       categoria: 'Web',
       urlExterna: "https://github.com/valenyuge",
@@ -388,15 +370,14 @@ function App() {
       fechaFin: "2026-01",
       descripcion: "App de gestión de tareas con TypeScript y React.",
       descripcion_en: "Task management app with TypeScript and React.",
-      contenidoLargo: "Aplicación de gestión de tareas con persistencia de datos, tipado fuerte y diseño moderno. Implementación de estados complejos en React.",
-      contenidoLargo_en: "Task management application with data persistence, strong typing, and modern design. Complex state implementation in React.",
+      contenidoLargo: "Aplicación de gestión de tareas con persistencia de datos...",
+      contenidoLargo_en: "Task management application with data persistence...",
       tecnologias: ["React", "TypeScript", "Tailwind"],
       categoria: 'Web',
       urlExterna: "https://todolist-18e7.onrender.com/",
       videoUrl: "/proyectos/to-do.mp4"
     }
   ];
-
 
   return (
     <Router>
