@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
-// Importamos herramientas de traducción y el detector de idioma
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 // --- CONFIGURACIÓN DE IDIOMAS CON DETECCIÓN AUTOMÁTICA --- 
 i18n
-  .use(LanguageDetector) // Detecta el idioma del navegador automáticamente
+  .use(LanguageDetector) 
   .use(initReactI18next)
   .init({
     resources: {
@@ -36,11 +35,10 @@ i18n
         }
       }
     },
-    fallbackLng: "es", // Si no detecta ES o EN, usa español
+    fallbackLng: "es", 
     detection: {
-      // Prioridad: 1. URL, 2. LocalStorage, 3. Navegador
       order: ['querystring', 'localStorage', 'navigator'],
-      caches: ['localStorage'], // Guarda la elección del usuario aquí
+      caches: ['localStorage'], 
     },
     interpolation: { escapeValue: false }
   });
@@ -61,18 +59,19 @@ interface Proyecto {
   videoUrl?: string;
 }
 
-// --- COMPONENTE SELECTOR DE IDIOMA (Fijo arriba a la derecha) ---
+// --- COMPONENTE SELECTOR DE IDIOMA ---
 const SelectorIdioma = () => {
   const { i18n } = useTranslation();
   return (
-    <div className="fixed top-6 right-8 z-50 flex items-center gap-1 bg-slate-800/80 backdrop-blur-md p-1 rounded-full border border-slate-700 shadow-xl">
+    /* Cambiamos 'fixed' por 'absolute' */
+    <div className="absolute top-4 right-4 md:top-6 md:right-8 z-50 flex items-center gap-1 bg-slate-800/80 backdrop-blur-md p-1 rounded-full border border-slate-700 shadow-xl scale-90 md:scale-100">
       <button 
         onClick={() => i18n.changeLanguage('es')}
-        className={`px-3 py-1 rounded-full text-xs font-black transition-all ${i18n.language.startsWith('es') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
+        className={`px-3 py-1 rounded-full text-[10px] md:text-xs font-black transition-all ${i18n.language.startsWith('es') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
       >ES</button>
       <button 
         onClick={() => i18n.changeLanguage('en')}
-        className={`px-3 py-1 rounded-full text-xs font-black transition-all ${i18n.language.startsWith('en') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
+        className={`px-3 py-1 rounded-full text-[10px] md:text-xs font-black transition-all ${i18n.language.startsWith('en') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}
       >EN</button>
     </div>
   );
@@ -94,7 +93,7 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
   const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-8 animate-in fade-in duration-500">
+    <div className="min-h-screen bg-slate-900 p-4 md:p-8 text-white font-sans relative">
       <SelectorIdioma />
       <div className="max-w-6xl mx-auto">
         <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors mb-12 inline-block font-bold">
@@ -174,38 +173,49 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
-    <div className="min-h-screen bg-slate-900 p-8 text-white font-sans">
+    <div className="min-h-screen bg-slate-900 p-4 md:p-8 text-white font-sans relative">
       <SelectorIdioma />
-      <header className="max-w-5xl mx-auto text-center mb-16">
-        <h1 className="text-5xl font-black mb-4 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-          Valentin Yuge
-        </h1>
-        <p className="text-slate-400 text-lg">{t('subtitulo')}</p>
-      </header>
+        <header className="max-w-5xl mx-auto text-center mb-16 pt-12 md:pt-0"> 
+          <h1 className="text-4xl md:text-5xl font-black mb-4 bg-linear-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+            Valentin Yuge
+          </h1>
+          <p className="text-slate-400 text-base md:text-lg">{t('subtitulo')}</p>
+        </header>
 
-      <nav className="flex justify-center flex-wrap gap-3 mb-16">
-        {['Todos', 'Web', 'Videojuegos', 'Multimedia'].map(cat => {
-          const traducciones: any = {
-            'Todos': i18n.language.startsWith('es') ? 'Todos' : 'All',
-            'Web': 'Web',
-            'Videojuegos': i18n.language.startsWith('es') ? 'Videojuegos' : 'Games',
-            'Multimedia': i18n.language.startsWith('es') ? 'Multimedia' : 'Multimedia'
-          };
-          return (
-            <button key={cat} onClick={() => setFiltro(cat)} 
-              className={`px-8 py-3 rounded-full font-bold transition-all duration-300 ${filtro === cat ? 'bg-blue-600 shadow-xl shadow-blue-600/30 scale-110' : 'bg-slate-800 text-slate-500 hover:bg-slate-700'}`}
-            >
-              {traducciones[cat]}
-            </button>
-          );
-        })}
+      <nav className="relative max-w-full overflow-hidden mb-12 md:mb-16">
+        <div className="flex overflow-x-auto no-scrollbar pb-4 gap-3 px-4 md:justify-center">
+          {['Todos', 'Web', 'Videojuegos', 'Multimedia'].map(cat => {
+            const traducciones: Record<string, string> = {
+              'Todos': i18n.language.startsWith('es') ? 'Todos' : 'All',
+              'Web': 'Web',
+              'Videojuegos': i18n.language.startsWith('es') ? 'Videojuegos' : 'Games',
+              'Multimedia': i18n.language.startsWith('es') ? 'Multimedia' : 'Multimedia'
+            };
+
+            return (
+              <button 
+                key={cat} 
+                onClick={() => setFiltro(cat)} 
+                className={`whitespace-nowrap px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${
+                  filtro === cat 
+                    ? 'bg-blue-600 border-blue-500 shadow-lg shadow-blue-600/20 scale-105 text-white' 
+                    : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'
+                }`}
+              >
+                {traducciones[cat]}
+              </button>
+            );
+          })}
+        </div>
       </nav>
 
       <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filtrados.map((p) => (
-          <Link key={p.id} to={`/proyecto/${p.id}`} 
-            className="group block bg-slate-800 p-8 rounded-[2rem] border border-slate-700 hover:border-blue-500 transition-all duration-500 hover:-translate-y-3 shadow-xl"
-          >
+            <Link 
+              key={p.id} 
+              to={`/proyecto/${p.id}`} 
+              className="group block bg-slate-800 p-8 rounded-4xl border border-slate-700 hover:border-blue-500 transition-all duration-500 hover:-translate-y-3 shadow-xl"
+            >
             <div className="flex justify-between items-start mb-4">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 block">{p.categoria}</span>
               <span className="text-slate-500 text-[11px] font-bold">{formatearPeriodo(p.fechaInicio, p.fechaFin)}</span>
