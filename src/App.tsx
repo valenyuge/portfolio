@@ -126,10 +126,17 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
             </div>
 
             <div className="pt-8">
-                <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
-                   className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
-                  {t('ver_demo')}
-                </a>
+                {p.urlExterna && p.urlExterna !== "https://github.com/valenyuge" ? (
+                    <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
+                      className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
+                      {t('ver_demo')}
+                    </a>
+                ) : (
+                    <a href="https://github.com/valenyuge" target="_blank" rel="noopener noreferrer" 
+                      className="bg-slate-700 hover:bg-slate-600 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block w-full text-center md:w-auto">
+                      VER REPOSITORIO GITHUB ↗
+                    </a>
+                )}
             </div>
           </div>
 
@@ -252,137 +259,137 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
 
 function App() {
   const proyectos: Proyecto[] = [
-    {
+{
       id: "runner-vr",
-      titulo: "Runner 3D VR Mobile",
-      titulo_en: "Mobile 3D VR Runner",
+      titulo: "Hora Pico: VR Mobile",
+      titulo_en: "Rush Hour: Mobile VR",
       fechaInicio: "2025-09",
       fechaFin: "2025-12",
-      descripcion: "Videojuego VR con sistema de inputs mediante webcam para detectar movimiento físico.",
-      descripcion_en: "VR Game with a webcam input system to detect physical movement.",
-      contenidoLargo: "Desarrollo de un videojuego de realidad virtual para móviles...",
-      contenidoLargo_en: "Mobile VR game development...",
-      tecnologias: ["Unity", "C#", "Motion Tracking"],
+      descripcion: "Videojuego inmersivo de realidad virtual que captura el caos urbano de intentar tomar el último colectivo.",
+      descripcion_en: "Immersive VR game capturing the urban chaos of trying to catch the last bus.",
+      contenidoLargo: "Desarrollo de 'Hora Pico', un Endless Runner en 3D para VR móvil. El jugador debe esquivar autos, peatones y obstáculos en una ciudad frenética para llegar a la parada. Implementé un sistema de colisiones preciso, audio espacial de proximidad y una banda sonora generada con Suno AI para potenciar la sensación de urgencia y estrés del entorno urbano.",
+      contenidoLargo_en: "Development of 'Rush Hour', a 3D Endless Runner for mobile VR. Players must dodge cars, pedestrians, and obstacles in a frantic city to reach the bus stop. I implemented a precise collision system, spatial proximity audio, and a soundtrack generated with Suno AI to enhance the urban environment's sense of urgency and stress.",
+      tecnologias: ["Unity 3D", "C#", "Mobile VR", "Suno AI"],
       categoria: 'Videojuegos',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "",
       videoUrl: "/proyectos/VR.mp4"
     },
-    {
+{
       id: "win98",
-      titulo: "Infografía Interactiva 'Win98'",
-      titulo_en: "'Win98' Interactive Infographic",
+      titulo: "OS Interactivo: Historia de la IA",
+      titulo_en: "Interactive OS: History of AI",
       fechaInicio: "2025-09",
       fechaFin: "2025-09",
-      descripcion: "Interfaz que simula un sistema operativo con ventanas arrastrables y lógica compleja.",
-      descripcion_en: "Interface simulating an operating system with draggable windows.",
-      contenidoLargo: "Programación de gestión del DOM para ventanas (popups) arrastrables...",
-      contenidoLargo_en: "DOM management for draggable windows...",
-      tecnologias: ["JavaScript", "HTML", "CSS"],
+      descripcion: "Sistema operativo simulado en la web que funciona como una infografía interactiva sobre la evolución de la IA.",
+      descripcion_en: "Simulated web operating system acting as an interactive infographic on the evolution of AI.",
+      contenidoLargo: "Recreación funcional de la interfaz de Windows 98. Implementé aplicaciones simuladas (Explorer, Paint, Notepad) mediante JavaScript puro para narrar la historia de la IA. El proyecto destaca por su lógica de ventanas arrastrables y navegación temática basada en el software clásico de los 90.",
+      contenidoLargo_en: "Functional recreation of the Windows 98 interface. I implemented simulated applications (Explorer, Paint, Notepad) using Vanilla JavaScript to narrate the history of AI. The project stands out for its draggable window logic and thematic navigation based on classic 90s software.",
+      tecnologias: ["JavaScript", "HTML5", "CSS3", "UI Design"],
       categoria: 'Web',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "https://valenyuge.github.io/infografia-taller/inicio.html",
       videoUrl: "/proyectos/Infografia-Windows.mp4"
     },
-    {
+{
       id: "audio-reactiva",
-      titulo: "Experiencia Web Audio-Reactiva",
-      titulo_en: "Audio-Reactive Web Experience",
+      titulo: "Voice Brush: Arte Generativo",
+      titulo_en: "Voice Brush: Generative Art",
       fechaInicio: "2025-04",
       fechaFin: "2025-08",
-      descripcion: "Obra generativa controlada por voz que analiza frecuencias en tiempo real.",
-      descripcion_en: "Voice-controlled generative piece analyzing frequencies.",
-      contenidoLargo: "Creación de una obra generativa controlada por voz...",
-      contenidoLargo_en: "Voice-controlled generative artwork...",
-      tecnologias: ["Web Audio API", "Canvas", "JavaScript"],
+      descripcion: "Experiencia de arte generativo controlada por voz que deforma grillas algorítmicas en tiempo real.",
+      descripcion_en: "Voice-controlled generative art experience that deforms algorithmic grids in real-time.",
+      contenidoLargo: "Interpretación interactiva de la obra de Vera Molnar. Utiliza Web Audio API para procesar tonos graves, agudos, silbidos y aplausos, transformando el sonido en parámetros visuales que afectan una grilla dinámica dibujada en Canvas.",
+      contenidoLargo_en: "Interactive interpretation of Vera Molnar's work. It uses Web Audio API to process bass, treble, whistles, and claps, transforming sound into visual parameters that affect a dynamic grid drawn on Canvas.",
+      tecnologias: ["Web Audio API", "Canvas", "JavaScript", "Generative Art"],
       categoria: 'Multimedia',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "https://valenyuge.github.io/WebAudio-ReactiveExperience/index.html",
       videoUrl: "/proyectos/obra-sonido.mp4"
     },
-    {
+{
       id: "influencers-ia",
-      titulo: "Instalación 'Influencers IA'",
-      titulo_en: "'AI Influencers' Installation",
+      titulo: "InfluencIA: Instalación Física",
+      titulo_en: "InfluencIA: Physical Installation",
       fechaInicio: "2025-09",
       fechaFin: "2025-12",
-      descripcion: "Lógica en Unity conectada a una instalación física con sensores Arduino.",
-      descripcion_en: "Unity logic connected to a physical installation with Arduino sensors.",
-      contenidoLargo: "Programación de la comunicación entre sensores físicos...",
-      contenidoLargo_en: "Programming the communication between physical sensors...",
-      tecnologias: ["Unity", "Arduino", "Serial Com"],
+      descripcion: "Instalación multimedia con Arduino y Unity que explora el fenómeno de las influencers IA mediante hardware personalizado.",
+      descripcion_en: "Multimedia installation with Arduino and Unity exploring the AI influencer phenomenon through custom hardware.",
+      contenidoLargo: "Desarrollo de una instalación interactiva con navegación no lineal mediante códigos QR y un potenciómetro físico (Arduino). Incluye módulos de comparativas gráficas y una trivia gamificada, integrando hardware y software mediante comunicación serial en Unity.",
+      contenidoLargo_en: "Development of an interactive installation with non-linear navigation using QR codes and a physical potentiometer (Arduino). Includes graphical comparison modules and a gamified trivia, integrating hardware and software via serial communication in Unity.",
+      tecnologias: ["Unity", "Arduino", "C# (Serial)", "Physical Interaction"],
       categoria: 'Multimedia',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "",
       videoUrl: "/proyectos/influencia.mp4"
     },
-    {
+{
       id: "endless-runner-js",
-      titulo: "Juego 'Endless Runner' Web",
-      titulo_en: "Web 'Endless Runner' Game",
+      titulo: "Vanilla JS Runner & Web",
+      titulo_en: "Vanilla JS Runner & Web",
       fechaInicio: "2024-09",
       fechaFin: "2024-11",
-      descripcion: "Motor de juego básico desarrollado desde cero con JavaScript puro.",
-      descripcion_en: "Basic game engine developed from scratch with pure JavaScript.",
-      contenidoLargo: "Implementación manual del Game Loop, detección de colisiones...",
-      contenidoLargo_en: "Manual implementation of the Game Loop...",
-      tecnologias: ["JavaScript", "Lógica de Juegos"],
+      descripcion: "Motor de juego 2D desarrollado desde cero en JS puro y plataforma web desplegada en Neocities.",
+      descripcion_en: "2D game engine developed from scratch in Vanilla JS and web platform deployed on Neocities.",
+      contenidoLargo: "Implementación manual de Game Loop y colisiones en JavaScript puro. El proyecto incluye una landing page con fundamentación narrativa, carrusel de assets y despliegue funcional en servidor real.",
+      contenidoLargo_en: "Manual implementation of Game Loop and collisions in Vanilla JavaScript. The project includes a landing page with narrative foundation, asset carousel, and functional live deployment.",
+      tecnologias: ["JavaScript", "HTML5/CSS3", "Game Logic", "Neocities"],
       categoria: 'Videojuegos',
       urlExterna: "https://valenyuge.neocities.org/",
       videoUrl: "/proyectos/runner-html.mp4"
     },
-    {
+{
       id: "arcade-versus",
-      titulo: "Arcade Sincro Versus 1v1",
-      titulo_en: "1v1 Synchro Versus Arcade",
+      titulo: "Arcade: Amargados 1v1",
+      titulo_en: "Amargados Arcade 1v1",
       fechaInicio: "2024-09",
       fechaFin: "2024-12",
-      descripcion: "Game Manager central para control de estados y sistema de puntuación.",
-      descripcion_en: "Central Game Manager for state control and scoring system.",
-      contenidoLargo: "Gestión de temporizadores y sistema de puntuación...",
-      contenidoLargo_en: "Timer management and scoring system...",
-      tecnologias: ["Unity", "C#"],
+      descripcion: "Instalación interactiva con controladores físicos hackeados y lógica de ritmo en Unity.",
+      descripcion_en: "Interactive installation with hacked physical controllers and rhythm logic in Unity.",
+      contenidoLargo: "Desarrollo de un arcade 2D con hardware personalizado. Implementé el Game Manager, sistema de puntuación por timing, eventos climáticos dinámicos y la integración de botones físicos mediante el mapeo de una matriz de teclado.",
+      contenidoLargo_en: "2D arcade development with custom hardware. I implemented the Game Manager, timing-based scoring, dynamic weather events, and physical button integration via keyboard matrix mapping.",
+      tecnologias: ["Unity", "C#", "Hardware", "Game Design"],
       categoria: 'Videojuegos',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "",
       videoUrl: "/proyectos/amargados.mp4"
     },
-    {
+{
       id: "landing-vorterix",
       titulo: "Landing Page 'Vorterix'",
       titulo_en: "'Vorterix' Landing Page",
       fechaInicio: "2025-04",
       fechaFin: "2025-05",
-      descripcion: "Maquetación Full Responsive Pixel Perfect para captura de datos.",
-      descripcion_en: "Full Responsive Pixel Perfect layout for data capture.",
-      contenidoLargo: "Enfoque Pixel Perfect respetando la identidad visual de la marca...",
-      contenidoLargo_en: "Pixel Perfect approach respecting brand identity...",
-      tecnologias: ["HTML", "CSS", "JavaScript"],
+      descripcion: "Maquetación Pixel Perfect con enfoque en conversión y fidelidad visual de marca.",
+      descripcion_en: "Pixel Perfect layout focused on conversion and brand visual fidelity.",
+      contenidoLargo: "Desarrollo de landing page responsive basada en un diseño de Figma. Implementé validación de datos con JavaScript y optimización de assets visuales, respetando estrictamente la identidad visual de Vorterix mediante un flujo de trabajo Pixel Perfect.",
+      contenidoLargo_en: "Responsive landing page development based on a Figma design. I implemented JavaScript data validation and visual asset optimization, strictly respecting Vorterix's visual identity through a Pixel Perfect workflow.",
+      tecnologias: ["Figma", "HTML5", "CSS3", "JavaScript"],
       categoria: 'Web',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "",
       videoUrl: "/proyectos/vorterix.mp4"
     },
-    {
+{
       id: "redisenio-gato",
       titulo: "Rediseño 'El Gato y la Caja'",
       titulo_en: "'El Gato y la Caja' Redesign",
       fechaInicio: "2025-06",
       fechaFin: "2025-08",
-      descripcion: "Refactorización de interfaz con componentes interactivos reutilizables.",
-      descripcion_en: "Interface refactoring with reusable interactive components.",
-      contenidoLargo: "Desarrollo de carruseles de imágenes y navegación...",
-      contenidoLargo_en: "Image carousel development and breadcrumb navigation...",
-      tecnologias: ["JavaScript", "UX", "HTML/CSS"],
+      descripcion: "Rediseño de plataforma informativa mediante metodologías de Design Thinking y UX Research.",
+      descripcion_en: "Digital news platform redesign using Design Thinking and UX Research methodologies.",
+      contenidoLargo: "Proyecto de rediseño integral desarrollado bajo la metodología de Diseño Centrado en el Usuario (DCU). El proceso incluyó Benchmarking, Arquitectura de la Información mediante Card Sorting y el desarrollo de un sistema de componentes interactivos. Me enfoqué en la rejerarquización de contenidos y la optimización de la legibilidad, logrando una propuesta de valor escalable implementada con HTML, CSS y JavaScript.",
+      contenidoLargo_en: "Comprehensive redesign project developed under User-Centered Design (UCD) methodology. The process involved Benchmarking, Information Architecture through Card Sorting, and the development of an interactive component system. I focused on content re-hierarchy and readability optimization, achieving a scalable value proposition implemented with HTML, CSS, and JavaScript.",
+      tecnologias: ["JavaScript (ES6+)", "UX/UI Design", "Information Architecture", "HTML5/CSS3"],
       categoria: 'Web',
-      urlExterna: "https://github.com/valenyuge",
+      urlExterna: "https://valenyuge.github.io/UI-UXRedesignforSciencePlatform/index.html",
       videoUrl: "/proyectos/elgatoylacaja.mp4"
     },
     {
       id: "todo-list",
-      titulo: "To-Do List",
-      titulo_en: "To-Do List",
+      titulo: "Full Stack To-Do List",
+      titulo_en: "Full Stack To-Do List",
       fechaInicio: "2026-01",
       fechaFin: "2026-01",
-      descripcion: "App de gestión de tareas con TypeScript y React.",
-      descripcion_en: "Task management app with TypeScript and React.",
-      contenidoLargo: "Aplicación de gestión de tareas con persistencia de datos...",
-      contenidoLargo_en: "Task management application with data persistence...",
-      tecnologias: ["React", "TypeScript", "Tailwind"],
+      descripcion: "Aplicación de gestión de tareas Full Stack con persistencia en base de datos relacional.",
+      descripcion_en: "Full Stack task management app with relational database persistence.",
+      contenidoLargo: "Desarrollo de una aplicación de gestión de tareas Full Stack utilizando Node.js, Express y PostgreSQL. Implementé Prisma ORM para la gestión de datos y React con TypeScript para un frontend robusto y escalable.",
+      contenidoLargo_en: "Full Stack task management application using Node.js, Express, and PostgreSQL. I implemented Prisma ORM for data management and React with TypeScript for a robust and scalable frontend.",
+      tecnologias: ["Node.js", "Express", "PostgreSQL", "Prisma", "React", "TypeScript", "Tailwind"],
       categoria: 'Web',
       urlExterna: "https://todolist-18e7.onrender.com/",
       videoUrl: "/proyectos/to-do.mp4"
