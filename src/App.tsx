@@ -269,7 +269,7 @@ function App() {
       descripcion_en: "Immersive VR game capturing the urban chaos of trying to catch the last bus.",
       contenidoLargo: "Desarrollo de 'Hora Pico', un Endless Runner en 3D para VR móvil. El jugador debe esquivar autos, peatones y obstáculos en una ciudad frenética para llegar a la parada. Implementé un sistema de colisiones preciso, audio espacial de proximidad y una banda sonora generada con Suno AI para potenciar la sensación de urgencia y estrés del entorno urbano.",
       contenidoLargo_en: "Development of 'Rush Hour', a 3D Endless Runner for mobile VR. Players must dodge cars, pedestrians, and obstacles in a frantic city to reach the bus stop. I implemented a precise collision system, spatial proximity audio, and a soundtrack generated with Suno AI to enhance the urban environment's sense of urgency and stress.",
-      tecnologias: ["Unity 3D", "C#", "Mobile VR", "Suno AI"],
+      tecnologias: ["Unity 3D", "C#", "Mobile VR", "OSC", "Suno AI"],
       categoria: 'Videojuegos',
       urlExterna: "",
       videoUrl: "/proyectos/VR.mp4"
@@ -314,7 +314,7 @@ function App() {
       descripcion_en: "Multimedia installation with Arduino and Unity exploring the AI influencer phenomenon through custom hardware.",
       contenidoLargo: "Desarrollo de una instalación interactiva con navegación no lineal mediante códigos QR y un potenciómetro físico (Arduino). Incluye módulos de comparativas gráficas y una trivia gamificada, integrando hardware y software mediante comunicación serial en Unity.",
       contenidoLargo_en: "Development of an interactive installation with non-linear navigation using QR codes and a physical potentiometer (Arduino). Includes graphical comparison modules and a gamified trivia, integrating hardware and software via serial communication in Unity.",
-      tecnologias: ["Unity", "Arduino", "C# (Serial)", "Physical Interaction"],
+      tecnologias: ["Unity", "Arduino", "C# (Serial)", "OSC", "Physical Interaction"],
       categoria: 'Multimedia',
       urlExterna: "",
       videoUrl: "/proyectos/influencia.mp4"
