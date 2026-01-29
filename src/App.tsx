@@ -281,7 +281,7 @@ function App() {
       descripcion_en: "Immersive VR game capturing the urban chaos of trying to catch the last bus.",
       contenidoLargo: "Desarrollo de 'Hora Pico', un Endless Runner en 3D para VR móvil. Implementé colisiones, audio espacial de proximidad y banda sonora generada con Suno AI.",
       contenidoLargo_en: "Development of 'Rush Hour', a 3D Endless Runner for mobile VR. I implemented collisions, spatial audio, and an AI-generated soundtrack.",
-      tecnologias: ["Unity 3D", "C#", "Mobile VR", "Suno AI"],
+      tecnologias: ["Unity 3D", "C#", "Mobile VR", "OSC", "Suno AI"],
       categoria: 'Videojuegos',
       urlExterna: "",
       videoUrl: "/proyectos/VR.mp4"
