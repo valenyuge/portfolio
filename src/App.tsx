@@ -183,7 +183,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
     <div className="min-h-screen bg-slate-900 p-4 md:p-8 text-white font-sans relative">
       <SelectorIdioma />
         <header className="max-w-5xl mx-auto text-center mb-16 pt-12 md:pt-0"> 
-          <h1 className="text-4xl md:text-5xl font-black mb-4 bg-linear-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+          <h1 className="text-4x1 md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
             Valentin Yuge
           </h1>
           <p className="text-slate-400 text-base md:text-lg">{t('subtitulo')}</p>
