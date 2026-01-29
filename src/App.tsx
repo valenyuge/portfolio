@@ -56,6 +56,7 @@ interface Proyecto {
   videoUrl?: string;
   canvaUrl?: string;
   figmaUrl?: string;
+  bitacoraUrl?: string;
 }
 
 // --- COMPONENTES AUXILIARES ---
@@ -82,6 +83,7 @@ const VisualizadorDocumento = ({ url, titulo }: { url?: string, titulo: string }
         <iframe
           loading="lazy"
           src={url}
+          title={titulo}
           className="absolute top-0 left-0 w-full h-full border-none"
           allowFullScreen
         />
@@ -143,15 +145,24 @@ return (
             </div>
 
             <div className="pt-8">
-                {p.urlExterna ? (
-                    <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
-                      {t('ver_demo')}
-                    </a>
-                ) : (
-                    <a href="https://github.com/valenyuge" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-slate-600 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block w-full text-center md:w-auto">
-                      VER REPOSITORIO GITHUB ↗
-                    </a>
-                )}
+              {/* Prioridad 1: Bitácora */}
+              {p.bitacoraUrl ? (
+                <a href={p.bitacoraUrl} target="_blank" rel="noopener noreferrer" 
+                  className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
+                  {i18n.language.startsWith('es') ? 'LEER BITÁCORA / PROCESO ↗' : 'READ CASE STUDY / LOG ↗'}
+                </a>
+              ) : p.urlExterna && p.urlExterna.trim() !== "" ? ( 
+                /* Prioridad 2: URL */
+                <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
+                  className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
+                  {t('ver_demo')}
+                </a>
+              ) : (
+                /* Prioridad 3: Si no hay ninguna de las dos */
+                <div className="text-slate-500 text-sm font-bold italic">
+                  {i18n.language.startsWith('es') ? "* Proyecto de hardware/offline - Documentación en video" : "* Hardware/Offline project - Video documentation only"}
+                </div>
+              )}
             </div>
           </div>
 
@@ -176,7 +187,7 @@ return (
 
         <VisualizadorDocumento 
             url={p.figmaUrl || p.canvaUrl} 
-            titulo={p.figmaUrl ? "Memoria Técnica y Proceso de Diseño" : "Documentación Detallada"} 
+            titulo={p.figmaUrl ? "Memoria Técnica y Proceso de Diseño" : "Memoria Técnica y Proceso de Diseño"} 
         />
         
       </div> 
@@ -282,6 +293,7 @@ function App() {
       contenidoLargo: "Desarrollo de 'Hora Pico', un Endless Runner en 3D para VR móvil. Implementé colisiones, audio espacial de proximidad y banda sonora generada con Suno AI.",
       contenidoLargo_en: "Development of 'Rush Hour', a 3D Endless Runner for mobile VR. I implemented collisions, spatial audio, and an AI-generated soundtrack.",
       tecnologias: ["Unity 3D", "C#", "Mobile VR", "OSC", "Suno AI"],
+      bitacoraUrl: "https://cherry-halloumi-3aa.notion.site/Hora-pico-Bit-cora-2a387ae1d566802fa823f963f5a055de?pvs=14",
       categoria: 'Videojuegos',
       urlExterna: "",
       videoUrl: "/proyectos/VR.mp4"
@@ -391,7 +403,7 @@ function App() {
       contenidoLargo_en: "Figma-based development. Focus on asset optimization and strict visual fidelity.",
       tecnologias: ["Figma", "HTML5", "CSS3", "JavaScript"],
       categoria: 'Web',
-      urlExterna: "",
+      urlExterna: "https://valenyuge.github.io/vorterix/index.html",
       videoUrl: "/proyectos/vorterix.mp4",
       canvaUrl: "https://www.canva.com/design/DAGoab_G6qE/OuNi1EX8LkiOvj41jqFICQ/view?embed"
     }
