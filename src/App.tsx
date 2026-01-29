@@ -160,7 +160,7 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
             </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-start">
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-xl font-bold text-blue-400">{t('sobre')}</h3>
             <p className="text-slate-300 text-lg leading-relaxed">
@@ -195,22 +195,22 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
             </div>
           </div>
 
-          <div className="lg:col-span-7">
-            <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-800/50 shadow-2xl w-full">
-              {p.videoUrl ? (
-                esVideoYoutube ? (
-                  <div className="aspect-video">
-                    <iframe className="w-full h-full" src={p.videoUrl.replace("watch?v=", "embed/")} title={`Video de ${p.titulo}`} allowFullScreen></iframe>
-                  </div>
+          <div className={`lg:col-span-7 ${p.id === 'influencers-ia' ? '' : 'lg:mt-14'}`}>
+              <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-800/50 shadow-2xl w-full">
+                {p.videoUrl ? (
+                  esVideoYoutube ? (
+                    <div className="aspect-video">
+                      <iframe className="w-full h-full" src={p.videoUrl.replace("watch?v=", "embed/")} title={`Video de ${p.titulo}`} allowFullScreen></iframe>
+                    </div>
+                  ) : (
+                    <video className="w-full h-auto max-h-[70vh] object-contain bg-black" controls muted loop>
+                      <source src={p.videoUrl} type="video/mp4" />
+                    </video>
+                  )
                 ) : (
-                  <video className="w-full h-auto max-h-[70vh] object-contain bg-black" controls muted loop>
-                    <source src={p.videoUrl} type="video/mp4" />
-                  </video>
-                )
-              ) : (
-                <img src={`/proyectos/${p.id}.png`} alt={p.titulo} className="w-full h-auto object-cover" />
-              )}
-            </div>
+                  <img src={`/proyectos/${p.id}.png`} alt={p.titulo} className="w-full h-auto object-cover" />
+                )}
+              </div>
           </div>
         </div> 
 
