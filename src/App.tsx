@@ -271,15 +271,15 @@ function App() {
   const proyectos: Proyecto[] = [
     {
       id: "todo-list",
-      titulo: "Full Stack To-Do List",
-      titulo_en: "Full Stack To-Do List",
+      titulo: "Gestor de Tareas Full Stack",
+      titulo_en: "Full Stack Task Manager",
       fechaInicio: "2026-01",
       fechaFin: "2026-01",
-      descripcion: "Aplicación de gestión de tareas Full Stack con persistencia en base de datos relacional.",
-      descripcion_en: "Full Stack task management app with relational database persistence.",
-      contenidoLargo: "Desarrollo con Node.js, Express y PostgreSQL gestionado con Prisma ORM. Incluye persistencia real y tipado fuerte con TypeScript.",
-      contenidoLargo_en: "Development using Node.js, Express, and PostgreSQL managed with Prisma ORM. Includes real persistence and strong typing with TypeScript.",
-      tecnologias: ["Node.js", "Express", "PostgreSQL", "Prisma", "React", "TypeScript", "Tailwind"],
+      descripcion: "Aplicación de productividad con persistencia de datos y lógica de tipado estricto.",
+      descripcion_en: "Productivity app with data persistence and strict typing logic.",
+      contenidoLargo: "Desarrollo integral de una aplicación de tareas utilizando el stack React + Vite. Implementé una base de datos PostgreSQL en Render para la persistencia, utilizando consultas SQL para la manipulación de la información. El proyecto destaca por su arquitectura limpia en TypeScript y una interfaz optimizada con TailwindCSS, priorizando la experiencia de usuario (UX) y el rendimiento.",
+      contenidoLargo_en: "End-to-end development of a task application using the React + Vite stack. I implemented a PostgreSQL database on Render for persistence, using SQL queries for data manipulation. The project stands out for its clean TypeScript architecture and an optimized UI with TailwindCSS, prioritizing user experience (UX) and performance.",
+      tecnologias: ["React", "PostgreSQL", "SQL", "TypeScript", "TailwindCSS", "Vite"],
       categoria: 'Web',
       urlExterna: "https://todolist-18e7.onrender.com/",
       videoUrl: "/proyectos/to-do.mp4"
