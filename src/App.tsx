@@ -75,11 +75,11 @@ const VisualizadorDocumento = ({ url, titulo }: { url?: string, titulo: string }
   if (!url) return null;
 
   return (
-    <div className="mt-16 space-y-6 w-full">
+    /* Movimos el mt-16 aquí adentro */
+    <div className="mt-16 space-y-6 w-full"> 
       <h3 className="text-xl font-bold text-blue-400 border-b border-slate-800 pb-4 tracking-tight">
         {titulo}
       </h3>
-
       <div className="relative w-full aspect-video overflow-hidden rounded-3xl border border-slate-700 bg-slate-800 shadow-2xl">
         <iframe
           loading="lazy"
@@ -100,26 +100,57 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
   const { t, i18n } = useTranslation();
   const { id } = useParams();
   const p = lista.find(proj => proj.id === id);
+  const [mostrarScroll, setMostrarScroll] = useState(false);
 
   useEffect(() => {
     if (p) { document.title = `${p.titulo} | Valentin Yuge`; }
-    return () => { document.title = "Valentin Yuge | Portfolio"; };
+
+    const verificarSiHayScroll = () => {
+      const tieneContenidoAbajo = document.documentElement.scrollHeight > window.innerHeight + 50;
+      if (tieneContenidoAbajo && window.scrollY < 50) {
+        setMostrarScroll(true);
+      } else {
+        setMostrarScroll(false);
+      }
+    };
+
+    verificarSiHayScroll();
+    window.addEventListener('scroll', verificarSiHayScroll);
+    window.addEventListener('resize', verificarSiHayScroll);
+
+    return () => {
+      document.title = "Valentin Yuge | Portfolio";
+      window.removeEventListener('scroll', verificarSiHayScroll);
+      window.removeEventListener('resize', verificarSiHayScroll);
+    };
   }, [p]);
 
   if (!p) return <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center font-bold">404</div>;
 
   const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
 
-return (
+  return (
     <div className="min-h-screen bg-slate-900 p-4 md:p-8 text-white font-sans relative">
       <SelectorIdioma />
+      
+      {mostrarScroll && (
+        <div 
+          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 z-40 animate-bounce cursor-pointer hidden md:block"
+        >
+          <div className="w-12 h-12 rounded-full border border-blue-500/30 flex items-center justify-center bg-slate-900/80 backdrop-blur-md shadow-2xl shadow-blue-500/20 hover:border-blue-400 transition-colors">
+            <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-6xl mx-auto">
-        {/* BOTÓN VOLVER */}
         <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors mb-12 inline-block font-bold">
           {t('volver')}
         </Link>
         
-        {/* CABECERA DEL PROYECTO */}
         <div className="mb-10">
             <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-blue-600/20 text-blue-400 rounded-full border border-blue-400/30">
                 {p.categoria}
@@ -129,7 +160,6 @@ return (
             </h1>
         </div>
 
-        {/* --- GRID PRINCIPAL --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-xl font-bold text-blue-400">{t('sobre')}</h3>
@@ -147,20 +177,17 @@ return (
             </div>
 
             <div className="pt-8">
-              {/* Prioridad 1: Bitácora */}
               {p.bitacoraUrl ? (
                 <a href={p.bitacoraUrl} target="_blank" rel="noopener noreferrer" 
                   className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
                   {i18n.language.startsWith('es') ? 'LEER BITÁCORA / PROCESO ↗' : 'READ CASE STUDY / LOG ↗'}
                 </a>
               ) : p.urlExterna && p.urlExterna.trim() !== "" ? ( 
-                /* Prioridad 2: URL */
                 <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
                   className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
                   {t('ver_demo')}
                 </a>
               ) : (
-                /* Prioridad 3: Si no hay ninguna de las dos */
                 <div className="text-slate-500 text-sm font-bold italic">
                   {i18n.language.startsWith('es') ? "* Proyecto de hardware/offline - Documentación en video" : "* Hardware/Offline project - Video documentation only"}
                 </div>
@@ -173,7 +200,7 @@ return (
               {p.videoUrl ? (
                 esVideoYoutube ? (
                   <div className="aspect-video">
-                    <iframe className="w-full h-full" src={p.videoUrl.replace("watch?v=", "embed/")} title={p.titulo} allowFullScreen></iframe>
+                    <iframe className="w-full h-full" src={p.videoUrl.replace("watch?v=", "embed/")} title={`Video de ${p.titulo}`} allowFullScreen></iframe>
                   </div>
                 ) : (
                   <video className="w-full h-auto max-h-[70vh] object-contain bg-black" controls muted loop>
@@ -189,8 +216,12 @@ return (
 
         <VisualizadorDocumento 
             url={p.figmaUrl || p.canvaUrl} 
-            titulo={p.figmaUrl ? "Memoria Técnica y Proceso de Diseño" : "Memoria Técnica y Proceso de Diseño"} 
+            titulo={i18n.language.startsWith('es') ? "Memoria Técnica y Proceso de Diseño" : "Technical Report & Design Process"} 
         />
+
+        <div className="border-slate-800">
+          <SeccionContacto />
+        </div>
         
       </div> 
     </div> 
@@ -240,28 +271,54 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
 
       <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filtrados.map((p) => (
-          <Link key={p.id} to={`/proyecto/${p.id}`} className="group block bg-slate-800 p-8 rounded-4xl border border-slate-700 hover:border-blue-500 transition-all duration-500 hover:-translate-y-3 shadow-xl">
-            <div className="flex justify-between items-start mb-4">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 block">{p.categoria}</span>
-              <span className="text-slate-500 text-[11px] font-bold">{formatearPeriodo(p.fechaInicio, p.fechaFin)}</span>
-            </div>
-            <h2 className="text-2xl font-black mb-3 group-hover:text-blue-400 transition-colors">{i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}</h2>
-            <p className="text-slate-400 text-sm mb-8 leading-relaxed line-clamp-2">{i18n.language.startsWith('es') ? p.descripcion : (p.descripcion_en || p.descripcion)}</p>
-            <div className="text-blue-500 text-xs font-black tracking-widest">{t('detalle_mas')}</div>
-          </Link>
-        ))}
-      </main>
-
-      <footer className="max-w-4xl mx-auto mt-32 mb-16 text-center border-t border-slate-800 pt-16">
-        <h2 className="text-3xl font-black mb-4">{t('contacto_tit')}</h2>
-        <p className="text-slate-400 mb-8">{t('contacto_desc')}</p>
-        <div className="flex justify-center flex-wrap gap-6">
-          <a href="mailto:valentinyuge@gmail.com" className="flex items-center gap-2 bg-slate-800 hover:bg-blue-600 px-6 py-3 rounded-2xl transition-all border border-slate-700"><span>📧</span><span className="font-bold">Email</span></a>
-          <a href="https://linkedin.com/in/valentinyuge" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-800 hover:bg-blue-700 px-6 py-3 rounded-2xl transition-all border border-slate-700"><span>🔗</span><span className="font-bold">LinkedIn</span></a>
-          <a href="https://github.com/valenyuge" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-6 py-3 rounded-2xl transition-all border border-slate-700"><span>🐙</span><span className="font-bold">GitHub</span></a>
-        </div>
-      </footer>
+  <Link key={p.id} to={`/proyecto/${p.id}`} className="group block bg-slate-800 p-8 rounded-4xl border border-slate-700 hover:border-blue-500 transition-all duration-500 hover:-translate-y-3 shadow-xl">
+    
+    <div className="flex justify-between items-start mb-4">
+      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 block">{p.categoria}</span>
+      <span className="text-slate-500 text-[11px] font-bold">{formatearPeriodo(p.fechaInicio, p.fechaFin)}</span>
     </div>
+
+    <h2 className="text-2xl font-black mb-3 group-hover:text-blue-400 transition-colors">
+      {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
+    </h2>
+
+    <p className="text-slate-400 text-sm mb-6 leading-relaxed line-clamp-2">
+      {i18n.language.startsWith('es') ? p.descripcion : (p.descripcion_en || p.descripcion)}
+    </p>
+
+    {/* NUEVO: Etiquetas de Tecnologías en la Home */}
+    <div className="flex flex-wrap gap-2 mb-8">
+      {p.tecnologias.slice(0, 4).map(tech => (
+        <span key={tech} className="text-[10px] font-bold bg-slate-900/50 text-slate-300 px-2 py-1 rounded-md border border-slate-700">
+          {tech}
+        </span>
+      ))}
+      {p.tecnologias.length > 4 && (
+        <span className="text-[10px] font-bold text-slate-500 py-1">+ {p.tecnologias.length - 4}</span>
+      )}
+    </div>
+
+    <div className="text-blue-500 text-xs font-black tracking-widest">{t('detalle_mas')}</div>
+  </Link>
+))}
+      </main>
+      <SeccionContacto />
+    </div>
+  );
+};
+
+const SeccionContacto = () => {
+  const { t } = useTranslation();
+  return (
+    <footer className="max-w-4xl mx-auto mt-32 mb-16 text-center border-t border-slate-800 pt-16">
+      <h2 className="text-3xl font-black mb-4">{t('contacto_tit')}</h2>
+      <p className="text-slate-400 mb-8">{t('contacto_desc')}</p>
+      <div className="flex justify-center flex-wrap gap-6">
+        <a href="mailto:valentinyuge@gmail.com" className="flex items-center gap-2 bg-slate-800 hover:bg-blue-600 px-6 py-3 rounded-2xl transition-all border border-slate-700"><span>📧</span><span className="font-bold">Email</span></a>
+        <a href="https://linkedin.com/in/valentinyuge" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-800 hover:bg-blue-700 px-6 py-3 rounded-2xl transition-all border border-slate-700"><span>🔗</span><span className="font-bold">LinkedIn</span></a>
+        <a href="https://github.com/valenyuge" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-6 py-3 rounded-2xl transition-all border border-slate-700"><span>🐙</span><span className="font-bold">GitHub</span></a>
+      </div>
+    </footer>
   );
 };
 
@@ -279,22 +336,22 @@ function App() {
       descripcion_en: "Productivity app with data persistence and strict typing logic.",
       contenidoLargo: "Desarrollo integral de una aplicación de tareas utilizando el stack React + Vite. Implementé una base de datos PostgreSQL en Render para la persistencia, utilizando consultas SQL para la manipulación de la información. El proyecto destaca por su arquitectura limpia en TypeScript y una interfaz optimizada con TailwindCSS, priorizando la experiencia de usuario (UX) y el rendimiento.",
       contenidoLargo_en: "End-to-end development of a task application using the React + Vite stack. I implemented a PostgreSQL database on Render for persistence, using SQL queries for data manipulation. The project stands out for its clean TypeScript architecture and an optimized UI with TailwindCSS, prioritizing user experience (UX) and performance.",
-      tecnologias: ["React", "PostgreSQL", "SQL", "TypeScript", "TailwindCSS", "Vite"],
+      tecnologias: ["TypeScript", "React", "PostgreSQL", "Node.js", "Express", "TailwindCSS", "SQL", "Vite"],
       categoria: 'Web',
       urlExterna: "https://todolist-18e7.onrender.com/",
       videoUrl: "/proyectos/to-do.mp4"
     },
     {
       id: "runner-vr",
-      titulo: "Hora Pico: VR Mobile",
-      titulo_en: "Rush Hour: Mobile VR",
+      titulo: "Hora Pico: Unity VR Mobile",
+      titulo_en: "Rush Hour: Unity Mobile VR",
       fechaInicio: "2025-09",
       fechaFin: "2025-12",
       descripcion: "Videojuego inmersivo de realidad virtual que captura el caos urbano de intentar tomar el último colectivo.",
       descripcion_en: "Immersive VR game capturing the urban chaos of trying to catch the last bus.",
       contenidoLargo: "Desarrollo de un videojuego de realidad virtual (VR) para móviles con una mecánica de 'Endless Runner' en 3D. El jugador asume el rol de un niño que debe sortear obstáculos urbanos, autos y peatones en cuatro carriles dinámicos para alcanzar la parada antes de que el colectivo se retire. Implementé un sistema de colisiones preciso y una arquitectura de sonido espacial que incluye alertas de proximidad y feedback sonoro de pasos. La banda sonora fue generada mediante Suno AI para lograr una atmósfera frenética y envolvente. El proyecto destaca por su diseño de entorno urbano y la integración de inputs físicos para una experiencia inmersiva total.",
       contenidoLargo_en: "Mobile Virtual Reality (VR) game development featuring a 3D 'Endless Runner' mechanic. Players take on the role of a child navigating urban obstacles, cars, and pedestrians across four dynamic lanes to reach the bus stop on time. I implemented a precise collision system and spatial audio architecture, including proximity alerts and footstep sound feedback. The soundtrack was generated using Suno AI to create a frantic and immersive atmosphere. The project stands out for its urban environment design and the integration of physical inputs for a complete immersive experience.",
-      tecnologias: ["Unity 3D", "C#", "Mobile VR", "OSC", "Suno AI"],
+      tecnologias: ["Unity 3D", "C#", "OSC", "Mobile VR", "Suno AI"],
       bitacoraUrl: "https://cherry-halloumi-3aa.notion.site/Hora-pico-Bit-cora-2a387ae1d566802fa823f963f5a055de?pvs=14",
       categoria: 'Videojuegos',
       urlExterna: "",
@@ -342,7 +399,7 @@ function App() {
       descripcion_en: "Digital news platform redesign using Design Thinking and UX Research methodologies.",
       contenidoLargo: "Proyecto de rediseño integral para el medio 'El Gato y la Caja' desarrollado bajo la metodología de Diseño Centrado en el Usuario (DCU). El proceso incluyó etapas de Benchmarking, creación de User Personas y Arquitectura de la Información mediante Card Sorting para optimizar el flujo de navegación. Desarrollé una propuesta de valor que incluye el rediseño de la Home, secciones específicas y notas de profundidad, enfocándome en la legibilidad y jerarquías visuales. La implementación funcional se realizó con HTML, CSS y JavaScript, logrando un sistema de diseño consistente y escalable para una experiencia de lectura fluida en desktop.",
       contenidoLargo_en: "Comprehensive redesign project for 'El Gato y la Caja' news outlet, developed under User-Centered Design (UCD) methodology. The process involved Benchmarking, User Personas creation, and Information Architecture through Card Sorting to optimize navigation flow. I developed a value proposition that includes a redesigned Home, specific sections, and in-depth articles, focusing on readability and visual hierarchy. The functional implementation was built with HTML, CSS, and JavaScript, achieving a consistent and scalable design system for a seamless desktop reading experience.",
-      tecnologias: ["JavaScript", "UX/UI Design", "Information Architecture", "HTML", "CSS", "Figma"],
+      tecnologias: ["JavaScript", "HTML", "CSS", "Figma", "UX/UI Design", "Information Architecture"],
       categoria: 'Web',
       urlExterna: "https://valenyuge.github.io/UI-UXRedesignforSciencePlatform/index.html",
       videoUrl: "/proyectos/elgatoylacaja.mp4",
@@ -358,7 +415,7 @@ function App() {
       descripcion_en: "Voice-controlled generative art experience that deforms algorithmic grids in real-time.",
       contenidoLargo: "Desarrollo de una experiencia web de arte generativo que reinterpreta las grillas de cuadrados de Vera Molnar. Utilizando la Web Audio API, programé un analizador de frecuencias que distingue entre tonos graves y agudos para controlar la deformación y el dibujo de la grilla en diferentes ejes (horizontal/vertical). Implementé lógica de detección de transitorios para reconocer aplausos (reinicio aleatorio de la obra) y silbidos (sistema de 'undo' o borrado progresivo). Todo el renderizado se realizó mediante Canvas API, permitiendo una performance fluida mientras el usuario interactúa mediante la voz o sonidos ambientales.",
       contenidoLargo_en: "Development of a generative art web experience reinterpreting Vera Molnar's square grids. Using the Web Audio API, I programmed a frequency analyzer that distinguishes between bass and treble tones to control the deformation and drawing of the grid on different axes. I implemented transient detection logic to recognize claps (random work reset) and whistles (progressive 'undo' or erasing system). All rendering was done via Canvas API, allowing fluid performance while the user interacts through voice or ambient sounds.",
-      tecnologias: ["Web Audio API", "Canvas", "JavaScript", "Generative Art"],
+      tecnologias: ["Web Audio API", "JavaScript", "Generative Art"],
       categoria: 'Multimedia',
       urlExterna: "https://valenyuge.github.io/WebAudio-ReactiveExperience/index.html",
       videoUrl: "/proyectos/obra-sonido.mp4"
@@ -373,7 +430,7 @@ function App() {
       descripcion_en: "2D game engine developed from scratch in Vanilla JS and web platform deployed on Neocities.",
       contenidoLargo: "Desarrollo de un videojuego 'Endless Runner' utilizando exclusivamente JavaScript puro (Vanilla JS), sin motores externos. Programé desde cero el Game Loop, la lógica de detección de colisiones AABB y el sistema de gravedad. El proyecto se presenta en una plataforma web diseñada para contextualizar la obra, incluyendo la fundamentación narrativa, un carrusel interactivo de assets y una galería multimedia. El sitio fue desplegado en Neocities, integrando el juego mediante una arquitectura de navegación fluida que conecta la landing page con la instancia ejecutable del juego.",
       contenidoLargo_en: "Development of an 'Endless Runner' video game using exclusively Vanilla JavaScript, without external engines. I programmed the Game Loop, AABB collision detection logic, and gravity system from scratch. The project is presented on a web platform designed to contextualize the work, including the narrative foundation, an interactive asset carousel, and a multimedia gallery. The site was deployed on Neocities, integrating the game through a fluid navigation architecture that connects the landing page with the playable instance of the game.",
-      tecnologias: ["JavaScript", "HTML", "CSS", "Game Logic", "Neocities"],
+      tecnologias: ["JavaScript", "HTML", "CSS", "Neocities", "Game Logic"],
       categoria: 'Videojuegos',
       urlExterna: "https://valenyuge.neocities.org/",
       videoUrl: "/proyectos/runner-html.mp4"
@@ -403,7 +460,7 @@ function App() {
       descripcion_en: "Pixel Perfect layout focused on conversion and brand visual fidelity.",
       contenidoLargo: "Desarrollo de una landing page de alto impacto para Vorterix, partiendo de un diseño original en Figma. El desafío principal fue lograr una maquetación Pixel Perfect que respetara la estética cruda y técnica del medio. Implementé una estructura Full Responsive utilizando metodologías modernas de CSS (Flexbox y Grid) y JavaScript para la validación de formularios de captura de datos en el lado del cliente. Me enfoqué en la optimización de activos visuales para garantizar una carga rápida sin perder calidad de imagen.",
       contenidoLargo_en: "High-impact landing page development for Vorterix, based on an original Figma design. The main challenge was achieving a Pixel Perfect layout that respected the brand's raw and technical aesthetics. I implemented a Full Responsive structure using modern CSS methodologies (Flexbox and Grid) and JavaScript for client-side data capture form validation. I focused on visual asset optimization to ensure fast loading times without compromising image quality.",
-      tecnologias: ["Figma", "HTML", "CSS", "JavaScript", "UX/UI Design"],
+      tecnologias: ["JavaScript", "HTML", "CSS", "Figma", "UX/UI Design"],
       categoria: 'Web',
       urlExterna: "https://valenyuge.github.io/vorterix/index.html",
       videoUrl: "/proyectos/vorterix.mp4",

@@ -8,3 +8,7 @@
   -ms-overflow-style: none;  /* IE y Edge viejo */
   scrollbar-width: none;     /* Firefox y Chrome nuevo */
 }
+
+html {
+  scroll-behavior: smooth;
+}
