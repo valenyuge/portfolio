@@ -79,22 +79,17 @@ const VisualizadorDocumento = ({ url, titulo }: { url?: string, titulo: string }
       <h3 className="text-xl font-bold text-blue-400 border-b border-slate-800 pb-4 tracking-tight">
         {titulo}
       </h3>
+
       <div className="relative w-full aspect-video overflow-hidden rounded-3xl border border-slate-700 bg-slate-800 shadow-2xl">
         <iframe
           loading="lazy"
           src={url}
           title={titulo}
-          className="absolute top-0 left-0 w-full h-full border-none"
-          allow="autoplay; fullscreen; vr" 
-          allowFullScreen={true}
-          style={{ touchAction: 'pan-y' }} 
+          className="absolute top-0 left-0 w-full h-full border-none touch-pan-y"
+          allow="autoplay; fullscreen; vr"
+          allowFullScreen
         />
       </div>
-      <p className="text-[10px] text-slate-500 text-center md:hidden italic">
-        {i18n.language.startsWith('es') 
-          ? "💡 Si no podés pasar los slides, usá el botón de pantalla completa." 
-          : "💡 If slides won't turn, use full-screen button."}
-      </p>
     </div>
   );
 };
