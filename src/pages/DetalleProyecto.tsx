@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { proyectos } from '../data/proyectos'; // Importamos los datos directo acá
+import { proyectos } from '../data/proyectos'; 
 import SelectorIdioma from '../components/SelectorIdioma';
 import SeccionContacto from '../components/SeccionContacto';
 import VisualizadorDocumento from '../components/VisualizadorDocumento';
@@ -9,7 +9,6 @@ import VisualizadorDocumento from '../components/VisualizadorDocumento';
 const DetalleProyecto = () => {
   const { t, i18n } = useTranslation();
   const { id } = useParams();
-  // Buscamos el proyecto directamente de la lista importada
   const p = proyectos.find(proj => proj.id === id);
   const [mostrarScroll, setMostrarScroll] = useState(false);
 

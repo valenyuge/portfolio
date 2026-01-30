@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { type Proyecto } from '../data/proyectos'; // Importamos el tipo desde la carpeta padre
+import { type Proyecto } from '../data/proyectos'; 
 import SelectorIdioma from '../components/SelectorIdioma';
 import SeccionContacto from '../components/SeccionContacto';
 
@@ -9,7 +9,6 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const { t, i18n } = useTranslation();
   const [filtro, setFiltro] = useState('Todos');
 
-  // Lógica de ordenamiento y filtrado
   const proyectosOrdenados = [...proyectos].sort((a, b) => new Date(b.fechaFin).getTime() - new Date(a.fechaFin).getTime());
   
   const formatearPeriodo = (inicio: string, fin: string) => {
