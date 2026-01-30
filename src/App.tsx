@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useLocation } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
@@ -228,6 +228,16 @@ const DetalleProyecto = ({ lista }: { lista: Proyecto[] }) => {
   );
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]); // Se ejecuta cada vez que cambia la ruta (el pathname)
+
+  return null; // No renderiza nada visual
+};
+
 // --- VISTA PRINCIPAL ---
 
 const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
@@ -321,6 +331,8 @@ const SeccionContacto = () => {
     </footer>
   );
 };
+
+
 
 // --- COMPONENTE PRINCIPAL APP ---
 
@@ -470,10 +482,12 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<GrillaProyectos proyectos={proyectos} />} />
         <Route path="/proyecto/:id" element={<DetalleProyecto lista={proyectos} />} />
       </Routes>
+      
     </Router>
   );
 }
