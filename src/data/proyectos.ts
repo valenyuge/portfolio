@@ -12,6 +12,7 @@ export interface Proyecto {
   categoria: 'Web' | 'Videojuegos' | 'Multimedia';
   urlExterna: string;
   videoUrl?: string;
+  imagenUrl?: string;
   canvaUrl?: string;
   figmaUrl?: string;
   bitacoraUrl?: string;
@@ -157,5 +158,35 @@ export const proyectos: Proyecto[] = [
       urlExterna: "https://valenyuge.github.io/vorterix/index.html",
       videoUrl: "/proyectos/vorterix.mp4",
       canvaUrl: "https://www.canva.com/design/DAGoab_G6qE/OuNi1EX8LkiOvj41jqFICQ/view?embed"
+    },
+    {
+      id: "ecommerce-muebles",
+      titulo: "E-Commerce de Muebles",
+      titulo_en: "Furniture E-Commerce",
+      fechaInicio: "2026-03",
+      fechaFin: "2026-05",
+      descripcion: "Plataforma de comercio electrónico con carrito de compras y pasarela de pagos.",
+      descripcion_en: "E-commerce platform with shopping cart and payment gateway.",
+      contenidoLargo: "Desarrollo de una tienda online de muebles minimalistas. Integración de pagos, gestión de estado global y panel de administración.",
+      contenidoLargo_en: "Development of an online minimalist furniture store. Payment integration, global state management, and admin dashboard.",
+      tecnologias: ["React", "Next.js", "TailwindCSS", "Stripe"],
+      categoria: 'Web',
+      urlExterna: "https://ejemplo-ecommerce.com",
+      imagenUrl: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: "dashboard-crypto",
+      titulo: "Dashboard de Criptomonedas",
+      titulo_en: "Crypto Dashboard",
+      fechaInicio: "2026-06",
+      fechaFin: "2026-08",
+      descripcion: "Panel interactivo para el seguimiento de precios de criptomonedas en tiempo real.",
+      descripcion_en: "Interactive dashboard for real-time cryptocurrency price tracking.",
+      contenidoLargo: "Aplicación web para visualizar el estado del mercado de criptomonedas usando gráficos avanzados y conexión WebSocket.",
+      contenidoLargo_en: "Web application to visualize cryptocurrency market status using advanced charts and WebSocket connection.",
+      tecnologias: ["Vue.js", "Chart.js", "WebSocket", "TailwindCSS"],
+      categoria: 'Web',
+      urlExterna: "https://ejemplo-crypto.com",
+      imagenUrl: "https://images.unsplash.com/photo-1621416894569-0f39ed31d247?auto=format&fit=crop&w=800&q=80"
     }
   ];

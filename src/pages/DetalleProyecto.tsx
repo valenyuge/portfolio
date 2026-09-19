@@ -35,12 +35,12 @@ const DetalleProyecto = () => {
     };
   }, [p]);
 
-  if (!p) return <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center font-bold">404 - Proyecto no encontrado</div>;
+  if (!p) return <div className="min-h-screen bg-stone-100 dark:bg-stone-900 text-stone-900 dark:text-stone-100 flex items-center justify-center font-bold">404 - Proyecto no encontrado</div>;
 
   const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
 
   return (
-    <div className="min-h-screen bg-slate-900 p-4 md:p-8 text-white font-sans relative">
+    <div className="min-h-screen bg-stone-100 dark:bg-stone-900 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative">
       <SelectorIdioma />
       
       {mostrarScroll && (
@@ -48,8 +48,8 @@ const DetalleProyecto = () => {
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
           className="fixed bottom-8 right-8 z-40 animate-bounce cursor-pointer hidden md:block"
         >
-          <div className="w-12 h-12 rounded-full border border-blue-500/30 flex items-center justify-center bg-slate-900/80 backdrop-blur-md shadow-2xl shadow-blue-500/20 hover:border-blue-400 transition-colors">
-            <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-12 h-12 rounded-full border border-stone-400/50 dark:border-stone-600/50 flex items-center justify-center bg-stone-100 dark:bg-stone-900/80 backdrop-blur-md shadow-2xl shadow-stone-900/10 dark:shadow-stone-100/10 hover:border-stone-600 dark:hover:border-stone-400 transition-colors">
+            <svg className="w-6 h-6 text-stone-900 dark:text-stone-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </div>
@@ -57,12 +57,12 @@ const DetalleProyecto = () => {
       )}
 
       <div className="max-w-6xl mx-auto">
-        <Link to="/" className="text-blue-400 hover:text-blue-300 transition-colors mb-12 inline-block font-bold">
+        <Link to="/" className="text-stone-900 dark:text-stone-200 hover:text-stone-600 dark:hover:text-stone-400 transition-colors mb-12 inline-block font-bold">
           {t('volver')}
         </Link>
         
         <div className="mb-10">
-            <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-blue-600/20 text-blue-400 rounded-full border border-blue-400/30">
+            <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-stone-200 dark:bg-stone-800 text-stone-900 dark:text-stone-200 rounded-full border border-stone-300 dark:border-stone-700">
                 {p.categoria}
             </span>
             <h1 className="text-5xl font-black mt-4 mb-6">
@@ -72,16 +72,16 @@ const DetalleProyecto = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-start">
           <div className="lg:col-span-5 space-y-6">
-            <h3 className="text-xl font-bold text-blue-400">{t('sobre')}</h3>
-            <p className="text-slate-300 text-lg leading-relaxed">
+            <h3 className="text-xl font-bold text-stone-900 dark:text-stone-200">{t('sobre')}</h3>
+            <p className="text-stone-700 dark:text-stone-300 text-lg leading-relaxed">
                 {i18n.language.startsWith('es') ? p.contenidoLargo : (p.contenidoLargo_en || p.contenidoLargo)}
             </p>
             
             <div className="pt-6">
-                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">{t('tech')}</h3>
+                <h3 className="text-sm font-bold text-stone-500 dark:text-stone-400 uppercase tracking-widest mb-4">{t('tech')}</h3>
                 <div className="flex flex-wrap gap-2">
                     {p.tecnologias.map(t => (
-                        <span key={t} className="bg-slate-800 px-4 py-2 rounded-xl text-sm border border-slate-700">{t}</span>
+                        <span key={t} className="bg-white dark:bg-stone-800 px-4 py-2 rounded-xl text-sm border border-stone-200 dark:border-stone-700">{t}</span>
                     ))}
                 </div>
             </div>
@@ -89,16 +89,16 @@ const DetalleProyecto = () => {
             <div className="pt-8">
               {p.bitacoraUrl ? (
                 <a href={p.bitacoraUrl} target="_blank" rel="noopener noreferrer" 
-                  className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
+                  className="bg-stone-800 dark:bg-stone-200 text-stone-100 dark:text-stone-900 hover:bg-stone-700 dark:hover:bg-stone-300 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 w-full text-center md:w-auto">
                   {i18n.language.startsWith('es') ? 'LEER BITÁCORA / PROCESO ↗' : 'READ CASE STUDY / LOG ↗'}
                 </a>
               ) : p.urlExterna && p.urlExterna.trim() !== "" ? ( 
                 <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
-                  className="bg-blue-600 hover:bg-blue-500 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-blue-600/20 w-full text-center md:w-auto">
+                  className="bg-stone-800 dark:bg-stone-200 text-stone-100 dark:text-stone-900 hover:bg-stone-700 dark:hover:bg-stone-300 px-10 py-4 rounded-2xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 w-full text-center md:w-auto">
                   {t('ver_demo')}
                 </a>
               ) : (
-                <div className="text-slate-500 text-sm font-bold italic">
+                <div className="text-stone-500 dark:text-stone-400 text-sm font-bold italic">
                   {i18n.language.startsWith('es') ? "* Proyecto de hardware/offline - Documentación en video" : "* Hardware/Offline project - Video documentation only"}
                 </div>
               )}
@@ -106,7 +106,7 @@ const DetalleProyecto = () => {
           </div>
 
           <div className={`lg:col-span-7 ${p.id === 'influencers-ia' ? '' : 'lg:mt-14'}`}>
-              <div className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-800/50 shadow-2xl w-full">
+              <div className="overflow-hidden rounded-3xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800/50 shadow-2xl w-full">
                 {p.videoUrl ? (
                   esVideoYoutube ? (
                     <div className="aspect-video">
@@ -118,7 +118,7 @@ const DetalleProyecto = () => {
                     </video>
                   )
                 ) : (
-                  <img src={`/proyectos/${p.id}.png`} alt={p.titulo} className="w-full h-auto object-cover" />
+                  <img src={p.imagenUrl || `/proyectos/${p.id}.png`} alt={p.titulo} className="w-full h-auto object-cover" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80'; }} />
                 )}
               </div>
           </div>
@@ -129,7 +129,7 @@ const DetalleProyecto = () => {
             titulo={i18n.language.startsWith('es') ? "Memoria Técnica y Proceso de Diseño" : "Technical Report & Design Process"} 
         />
 
-        <div className="border-slate-800">
+        <div className="border-stone-300 dark:border-stone-800">
           <SeccionContacto />
         </div>
         
