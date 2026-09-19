@@ -32,7 +32,7 @@ const BotonTema = () => {
     <button
       onClick={toggleTema}
       aria-label={esOscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-      className="absolute top-4 left-4 md:top-6 md:left-8 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-white/90 dark:bg-stone-800/90 backdrop-blur-md border border-stone-300 dark:border-stone-700 shadow-lg text-stone-800 dark:text-stone-200 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+      className="absolute top-4 left-4 md:top-6 md:left-8 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-[#e8e1d3]/90 dark:bg-stone-900/90 backdrop-blur-md border border-stone-300/80 dark:border-stone-800 shadow-lg text-stone-800 dark:text-stone-200 hover:scale-105 active:scale-95 transition-all cursor-pointer"
       title={esOscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
     >
       {esOscuro ? (

@@ -20,10 +20,10 @@ const SeccionContacto = () => {
             href={enlace.href}
             target={enlace.external ? "_blank" : undefined}
             rel={enlace.external ? "noopener noreferrer" : undefined}
-            className="flex items-center gap-2 bg-white dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 visited:text-stone-900 dark:visited:text-stone-100 px-6 py-3 rounded-2xl transition-all border border-stone-300 dark:border-stone-700 shadow-md font-bold"
+            className="flex items-center gap-2 bg-stone-900 dark:bg-stone-100 hover:bg-stone-800 dark:hover:bg-stone-200 text-stone-100 dark:text-stone-900 visited:text-stone-100 dark:visited:text-stone-900 px-6 py-3 rounded-2xl transition-all border border-stone-800 dark:border-stone-300 shadow-md font-bold"
           >
             <span>{enlace.icon}</span>
-            <span className="text-stone-900 dark:text-stone-100">{enlace.label}</span>
+            <span className="text-stone-100 dark:text-stone-900">{enlace.label}</span>
           </a>
         ))}
       </div>

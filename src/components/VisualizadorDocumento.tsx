@@ -6,7 +6,7 @@ const VisualizadorDocumento = ({ url, titulo }: { url?: string, titulo: string }
       <h3 className="text-xl font-bold text-stone-900 dark:text-stone-200 border-b border-stone-300 dark:border-stone-800 pb-4 tracking-tight">
         {titulo}
       </h3>
-      <div className="relative w-full aspect-video overflow-hidden rounded-3xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 shadow-2xl">
+      <div className="relative w-full aspect-video overflow-hidden rounded-3xl border border-stone-800 dark:border-stone-300 bg-stone-900 dark:bg-stone-100 shadow-2xl">
         <iframe
           loading="lazy"
           src={url}

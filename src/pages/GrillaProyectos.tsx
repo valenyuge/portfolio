@@ -20,12 +20,12 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
-    <div className="min-h-screen bg-stone-100 dark:bg-stone-900 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#f4efe6] dark:bg-stone-950 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative transition-colors duration-300">
       <BotonTema />
       <SelectorIdioma />
       <header className="max-w-5xl mx-auto text-center mb-16 pt-12 md:pt-0"> 
-        <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-stone-600 to-stone-400 dark:from-stone-300 dark:to-stone-500 bg-clip-text text-transparent">Valentin Yuge</h1>
-        <p className="text-stone-600 dark:text-stone-400 text-base md:text-lg">{t('subtitulo')}</p>
+        <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-stone-800 to-stone-600 dark:from-stone-100 dark:to-stone-400 bg-clip-text text-transparent">Valentin Yuge</h1>
+        <p className="text-stone-700 dark:text-stone-400 text-base md:text-lg">{t('subtitulo')}</p>
       </header>
 
       <nav className="relative max-w-full overflow-hidden mb-12 md:mb-16">
@@ -38,7 +38,11 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               'Multimedia': i18n.language.startsWith('es') ? 'Multimedia' : 'Multimedia'
             };
             return (
-              <button key={cat} onClick={() => setFiltro(cat)} className={`whitespace-nowrap px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${filtro === cat ? 'bg-stone-800 dark:bg-stone-200 text-stone-100 dark:text-stone-900 border-stone-800 dark:border-stone-200 shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 scale-105' : 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700'}`}>
+              <button 
+                key={cat} 
+                onClick={() => setFiltro(cat)} 
+                className={`whitespace-nowrap px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${filtro === cat ? 'bg-stone-900 dark:bg-stone-100 text-stone-100 dark:text-stone-900 border-stone-900 dark:border-stone-100 shadow-lg scale-105' : 'bg-[#e8e1d3] dark:bg-stone-900 border-stone-300/80 dark:border-stone-800 text-stone-700 dark:text-stone-400 hover:bg-[#ded5c5] dark:hover:bg-stone-800'}`}
+              >
                 {traducciones[cat]}
               </button>
             );
@@ -48,41 +52,57 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
 
       <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filtrados.map((p) => (
-          <Link key={p.id} to={`/proyecto/${p.id}`} className="group block bg-white dark:bg-stone-800 p-8 rounded-4xl border border-stone-200 dark:border-stone-700 hover:border-stone-400 dark:hover:border-stone-500 transition-all duration-500 hover:-translate-y-3 shadow-xl">
+          <Link 
+            key={p.id} 
+            to={`/proyecto/${p.id}`} 
+            className="group block bg-stone-900 dark:bg-stone-100 p-8 rounded-4xl border border-stone-800 dark:border-stone-300 hover:border-stone-600 dark:hover:border-stone-400 transition-all duration-500 hover:-translate-y-3 shadow-xl"
+          >
             
-            <div className="aspect-video w-full mb-6 overflow-hidden rounded-2xl bg-stone-200 dark:bg-stone-700 relative">
+            <div className="aspect-video w-full mb-6 overflow-hidden rounded-2xl bg-stone-800 dark:bg-stone-200 relative">
               {p.imagenUrl || p.videoUrl ? (
-                <img src={p.imagenUrl || `/proyectos/${p.id}.png`} alt={p.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80'; }} />
+                <img 
+                  src={p.imagenUrl || `/proyectos/${p.id}.png`} 
+                  alt={p.titulo} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80'; }} 
+                />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-stone-400 font-bold">{p.titulo}</div>
+                <div className="w-full h-full flex items-center justify-center text-stone-400 dark:text-stone-500 font-bold">{p.titulo}</div>
               )}
             </div>
 
             <div className="flex justify-between items-start mb-4">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-900 dark:text-stone-200 block">{p.categoria}</span>
-              <span className="text-stone-500 dark:text-stone-400 text-[11px] font-bold">{formatearPeriodo(p.fechaInicio, p.fechaFin)}</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 dark:text-stone-600 block">
+                {p.categoria}
+              </span>
+              <span className="text-stone-400 dark:text-stone-500 text-[11px] font-bold">
+                {formatearPeriodo(p.fechaInicio, p.fechaFin)}
+              </span>
             </div>
 
-            <h2 className="text-2xl font-black mb-3 group-hover:text-stone-900 dark:text-stone-200 transition-colors">
+            <h2 className="text-2xl font-black mb-3 text-stone-100 dark:text-stone-900 group-hover:text-stone-300 dark:group-hover:text-stone-700 transition-colors">
               {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h2>
 
-            <p className="text-stone-600 dark:text-stone-400 text-sm mb-6 leading-relaxed line-clamp-2">
+            <p className="text-stone-300 dark:text-stone-600 text-sm mb-6 leading-relaxed line-clamp-2">
               {i18n.language.startsWith('es') ? p.descripcion : (p.descripcion_en || p.descripcion)}
             </p>
 
             <div className="flex flex-wrap gap-2 mb-8">
               {p.tecnologias.slice(0, 4).map(tech => (
-                <span key={tech} className="text-[10px] font-bold bg-stone-100 dark:bg-stone-900/50 text-stone-700 dark:text-stone-300 px-2 py-1 rounded-md border border-stone-200 dark:border-stone-700">
+                <span 
+                  key={tech} 
+                  className="text-[10px] font-bold bg-stone-800 dark:bg-stone-200/80 text-stone-200 dark:text-stone-800 px-2 py-1 rounded-md border border-stone-700 dark:border-stone-300"
+                >
                   {tech}
                 </span>
               ))}
               {p.tecnologias.length > 4 && (
-                <span className="text-[10px] font-bold text-stone-500 dark:text-stone-400 py-1">+ {p.tecnologias.length - 4}</span>
+                <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 py-1">+ {p.tecnologias.length - 4}</span>
               )}
             </div>
 
-            <div className="text-stone-900 dark:text-stone-200 text-xs font-black tracking-widest">{t('detalle_mas')}</div>
+            <div className="text-stone-300 dark:text-stone-800 text-xs font-black tracking-widest group-hover:underline">{t('detalle_mas')}</div>
           </Link>
         ))}
       </main>
