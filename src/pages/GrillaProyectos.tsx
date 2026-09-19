@@ -20,11 +20,11 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
-    <div className="min-h-screen bg-[#f4efe6] dark:bg-stone-950 p-4 md:p-8 text-stone-900 dark:text-[#f4efe6] font-sans relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#fdf6e3] dark:bg-stone-950 p-4 md:p-8 text-stone-900 dark:text-[#fdf6e3] font-sans relative transition-colors duration-300">
       <BotonTema />
       <SelectorIdioma />
       <header className="max-w-5xl mx-auto text-center mb-16 pt-12 md:pt-0"> 
-        <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-stone-800 to-stone-600 dark:from-[#f4efe6] dark:to-stone-400 bg-clip-text text-transparent">Valentin Yuge</h1>
+        <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-stone-800 to-stone-600 dark:from-[#fdf6e3] dark:to-stone-400 bg-clip-text text-transparent">Valentin Yuge</h1>
         <p className="text-stone-700 dark:text-[#d6cfc2] text-base md:text-lg">{t('subtitulo')}</p>
       </header>
 
@@ -41,7 +41,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               <button 
                 key={cat} 
                 onClick={() => setFiltro(cat)} 
-                className={`whitespace-nowrap px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${filtro === cat ? 'bg-stone-900 dark:bg-[#f4efe6] text-[#f4efe6] dark:text-stone-900 border-stone-900 dark:border-[#f4efe6] shadow-lg scale-105' : 'bg-[#e8e1d3] dark:bg-stone-900 border-stone-300/80 dark:border-stone-800 text-stone-700 dark:text-[#d6cfc2] hover:bg-[#ded5c5] dark:hover:bg-stone-800'}`}
+                className={`whitespace-nowrap px-4 py-2 text-sm transition-all duration-300 ${filtro === cat ? 'font-bold underline decoration-2 underline-offset-8 text-stone-900 dark:text-[#fdf6e3]' : 'font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-[#fdf6e3]'}`}
               >
                 {traducciones[cat]}
               </button>
@@ -55,10 +55,10 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
           <Link 
             key={p.id} 
             to={`/proyecto/${p.id}`} 
-            className="group block bg-stone-900 dark:bg-[#f4efe6] p-6 md:p-7 rounded-xl border border-stone-800 dark:border-[#e0d6c3] hover:border-stone-600 dark:hover:border-stone-400 transition-all duration-300 hover:-translate-y-2 shadow-lg"
+            className="group block bg-stone-900 dark:bg-[#fdf6e3] hover:bg-stone-950 dark:hover:bg-[#f2ead3] p-6 md:p-7 rounded-xl border border-stone-800 dark:border-[#e0d6c3] hover:border-stone-600 dark:hover:border-stone-400 transition-all duration-300 hover:-translate-y-2 shadow-lg"
           >
             
-            <div className="aspect-video w-full mb-5 overflow-hidden rounded-lg bg-stone-800 dark:bg-[#e8e1d3] relative">
+            <div className="aspect-video w-full mb-5 overflow-hidden rounded-lg bg-stone-800 dark:bg-[#f2ead3] relative">
               {p.imagenUrl || p.videoUrl ? (
                 <img 
                   src={p.imagenUrl || `/proyectos/${p.id}.png`} 
@@ -80,7 +80,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               </span>
             </div>
 
-            <h2 className="text-2xl font-black mb-3 text-[#f4efe6] dark:text-stone-900 group-hover:text-[#dfd7c8] dark:group-hover:text-stone-700 transition-colors">
+            <h2 className="text-2xl font-black mb-3 text-[#fdf6e3] dark:text-stone-900 group-hover:text-[#dfd7c8] dark:group-hover:text-stone-700 transition-colors">
               {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h2>
 
@@ -92,7 +92,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               {p.tecnologias.slice(0, 4).map(tech => (
                 <span 
                   key={tech} 
-                  className="text-[10px] font-bold bg-stone-800 dark:bg-[#e8e1d3] text-[#f4efe6] dark:text-stone-800 px-2.5 py-1 rounded border border-stone-700 dark:border-[#d6cbbb]"
+                  className="text-[10px] font-bold bg-stone-800 dark:bg-[#f2ead3] text-[#fdf6e3] dark:text-stone-800 px-2.5 py-1 rounded border border-stone-700 dark:border-[#d6cbbb]"
                 >
                   {tech}
                 </span>
@@ -102,7 +102,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               )}
             </div>
 
-            <div className="text-[#f4efe6] dark:text-stone-900 text-xs font-black tracking-widest group-hover:underline">{t('detalle_mas')}</div>
+            <div className="text-[#fdf6e3] dark:text-stone-900 text-xs font-black tracking-widest group-hover:underline">{t('detalle_mas')}</div>
           </Link>
         ))}
       </main>

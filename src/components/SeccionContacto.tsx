@@ -39,7 +39,7 @@ const SeccionContacto = () => {
 
   return (
     <footer className="max-w-4xl mx-auto mt-32 mb-16 text-center border-t border-stone-300 dark:border-stone-800 pt-16">
-      <h2 className="text-3xl font-black mb-4 text-stone-900 dark:text-[#f4efe6]">{t('contacto_tit')}</h2>
+      <h2 className="text-3xl font-black mb-4 text-stone-900 dark:text-[#fdf6e3]">{t('contacto_tit')}</h2>
       <p className="text-stone-700 dark:text-[#d6cfc2] mb-8">{t('contacto_desc')}</p>
       <div className="flex justify-center flex-wrap gap-6">
         {enlaces.map((enlace) => (
@@ -48,10 +48,10 @@ const SeccionContacto = () => {
             href={enlace.href}
             target={enlace.external ? "_blank" : undefined}
             rel={enlace.external ? "noopener noreferrer" : undefined}
-            className="flex items-center gap-2 bg-stone-900 dark:bg-[#f4efe6] hover:bg-stone-800 dark:hover:bg-[#e0d6c3] text-[#f4efe6] dark:text-stone-900 visited:text-[#f4efe6] dark:visited:text-stone-900 px-6 py-3 rounded-xl transition-all border border-stone-800 dark:border-[#d6cbbb] shadow-md font-bold"
+            className="flex items-center gap-2 bg-stone-900 dark:bg-[#fdf6e3] hover:bg-stone-800 dark:hover:bg-[#e0d6c3] text-[#fdf6e3] dark:text-stone-900 visited:text-[#fdf6e3] dark:visited:text-stone-900 px-6 py-3 rounded-xl transition-all border border-stone-800 dark:border-[#d6cbbb] shadow-md font-bold"
           >
             <span>{enlace.icon}</span>
-            <span className="text-[#f4efe6] dark:text-stone-900">{enlace.label}</span>
+            <span className="text-[#fdf6e3] dark:text-stone-900">{enlace.label}</span>
           </a>
         ))}
       </div>

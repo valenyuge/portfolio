@@ -41,7 +41,7 @@ const DetalleProyecto = () => {
   const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
 
   return (
-    <div className="min-h-screen bg-[#f4efe6] dark:bg-stone-950 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#fdf6e3] dark:bg-stone-950 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative transition-colors duration-300">
       <BotonTema />
       <SelectorIdioma />
       
@@ -50,7 +50,7 @@ const DetalleProyecto = () => {
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
           className="fixed bottom-8 right-8 z-40 animate-bounce cursor-pointer hidden md:block"
         >
-          <div className="w-12 h-12 rounded-full border border-stone-300/80 dark:border-stone-700 flex items-center justify-center bg-[#e8e1d3] dark:bg-stone-900/80 backdrop-blur-md shadow-2xl shadow-stone-900/10 dark:shadow-stone-100/10 hover:border-stone-500 dark:hover:border-stone-500 transition-colors">
+          <div className="w-12 h-12 rounded-full border border-stone-300/80 dark:border-stone-700 flex items-center justify-center bg-[#f2ead3] dark:bg-stone-900/80 backdrop-blur-md shadow-2xl shadow-stone-900/10 dark:shadow-stone-100/10 hover:border-stone-500 dark:hover:border-stone-500 transition-colors">
             <svg className="w-6 h-6 text-stone-900 dark:text-stone-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
@@ -59,22 +59,22 @@ const DetalleProyecto = () => {
       )}
 
       <div className="max-w-6xl mx-auto">
-        <Link to="/" className="text-stone-900 dark:text-[#f4efe6] hover:text-stone-600 dark:hover:text-[#d6cfc2] transition-colors mb-12 inline-block font-bold">
+        <Link to="/" className="text-stone-900 dark:text-[#fdf6e3] hover:text-stone-600 dark:hover:text-[#d6cfc2] transition-colors mb-12 inline-block font-bold">
           {t('volver')}
         </Link>
         
         <div className="mb-10">
-            <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-stone-900 dark:bg-[#f4efe6] text-[#f4efe6] dark:text-stone-900 rounded-md border border-stone-800 dark:border-[#d6cbbb]">
+            <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-stone-900 dark:bg-[#fdf6e3] text-[#fdf6e3] dark:text-stone-900 rounded-md border border-stone-800 dark:border-[#d6cbbb]">
                 {p.categoria}
             </span>
-            <h1 className="text-5xl font-black mt-4 mb-6 text-stone-900 dark:text-[#f4efe6]">
+            <h1 className="text-5xl font-black mt-4 mb-6 text-stone-900 dark:text-[#fdf6e3]">
               {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-start">
           <div className="lg:col-span-5 space-y-6">
-            <h3 className="text-xl font-bold text-stone-900 dark:text-[#f4efe6]">{t('sobre')}</h3>
+            <h3 className="text-xl font-bold text-stone-900 dark:text-[#fdf6e3]">{t('sobre')}</h3>
             <p className="text-stone-800 dark:text-[#d6cfc2] text-lg leading-relaxed">
                 {i18n.language.startsWith('es') ? p.contenidoLargo : (p.contenidoLargo_en || p.contenidoLargo)}
             </p>
@@ -83,7 +83,7 @@ const DetalleProyecto = () => {
                 <h3 className="text-sm font-bold text-stone-500 dark:text-stone-400 uppercase tracking-widest mb-4">{t('tech')}</h3>
                 <div className="flex flex-wrap gap-2">
                     {p.tecnologias.map(t => (
-                        <span key={t} className="bg-stone-900 dark:bg-[#f4efe6] text-[#f4efe6] dark:text-stone-900 px-3.5 py-1.5 rounded-md text-sm border border-stone-800 dark:border-[#d6cbbb]">{t}</span>
+                        <span key={t} className="bg-stone-900 dark:bg-[#fdf6e3] text-[#fdf6e3] dark:text-stone-900 px-3.5 py-1.5 rounded-md text-sm border border-stone-800 dark:border-[#d6cbbb]">{t}</span>
                     ))}
                 </div>
             </div>
@@ -91,12 +91,12 @@ const DetalleProyecto = () => {
             <div className="pt-8">
               {p.bitacoraUrl ? (
                 <a href={p.bitacoraUrl} target="_blank" rel="noopener noreferrer" 
-                  className="bg-stone-900 dark:bg-[#f4efe6] text-[#f4efe6] dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-[#e0d6c3] px-10 py-4 rounded-xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 w-full text-center md:w-auto">
+                  className="bg-stone-900 dark:bg-[#fdf6e3] text-[#fdf6e3] dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-[#e0d6c3] px-10 py-4 rounded-xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 w-full text-center md:w-auto">
                   {i18n.language.startsWith('es') ? 'LEER BITÁCORA / PROCESO ↗' : 'READ CASE STUDY / LOG ↗'}
                 </a>
               ) : p.urlExterna && p.urlExterna.trim() !== "" ? ( 
                 <a href={p.urlExterna} target="_blank" rel="noopener noreferrer" 
-                  className="bg-stone-900 dark:bg-[#f4efe6] text-[#f4efe6] dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-[#e0d6c3] px-10 py-4 rounded-xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 w-full text-center md:w-auto">
+                  className="bg-stone-900 dark:bg-[#fdf6e3] text-[#fdf6e3] dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-[#e0d6c3] px-10 py-4 rounded-xl font-black transition-all hover:scale-105 inline-block shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 w-full text-center md:w-auto">
                   {t('ver_demo')}
                 </a>
               ) : (
@@ -108,7 +108,7 @@ const DetalleProyecto = () => {
           </div>
 
           <div className={`lg:col-span-7 ${p.id === 'influencers-ia' ? '' : 'lg:mt-14'}`}>
-              <div className="overflow-hidden rounded-xl border border-stone-800 dark:border-[#d6cbbb] bg-stone-900 dark:bg-[#f4efe6]/50 shadow-2xl w-full">
+              <div className="overflow-hidden rounded-xl border border-stone-800 dark:border-[#d6cbbb] bg-stone-900 dark:bg-[#fdf6e3]/50 shadow-2xl w-full">
                 {p.videoUrl ? (
                   esVideoYoutube ? (
                     <div className="aspect-video">
