@@ -49,7 +49,8 @@ export const proyectos: Proyecto[] = [
       bitacoraUrl: "https://cherry-halloumi-3aa.notion.site/Hora-pico-Bit-cora-2a387ae1d566802fa823f963f5a055de?pvs=14",
       categoria: 'Videojuegos',
       urlExterna: "",
-      videoUrl: "/proyectos/VR.mp4"
+      videoUrl: "/proyectos/VR.mp4",
+      imagenUrl: "/proyectos/runner-vr.png"
     },
     {
       id: "win98",
