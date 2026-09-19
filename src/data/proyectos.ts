@@ -32,7 +32,8 @@ export const proyectos: Proyecto[] = [
       tecnologias: ["TypeScript", "React", "PostgreSQL", "Node.js", "Express", "TailwindCSS", "SQL", "Vite"],
       categoria: 'Web',
       urlExterna: "https://todolist-18e7.onrender.com/",
-      videoUrl: "/proyectos/to-do.mp4"
+      videoUrl: "/proyectos/to-do.mp4",
+      imagenUrl: "/proyectos/todo-list.png"
     },
     {
       id: "runner-vr",
@@ -64,6 +65,7 @@ export const proyectos: Proyecto[] = [
       categoria: 'Web',
       urlExterna: "https://valenyuge.github.io/infografia-taller/inicio.html",
       videoUrl: "/proyectos/Infografia-Windows.mp4",
+      imagenUrl: "/proyectos/win98.png",
       figmaUrl: "https://embed.figma.com/slides/0MrmBkCXCZ4qg5SctYO4mA/TP3-Memoria-Descriptiva?node-id=1-29&embed-host=share"
     },
     {
@@ -80,6 +82,7 @@ export const proyectos: Proyecto[] = [
       categoria: 'Multimedia',
       urlExterna: "",
       videoUrl: "/proyectos/influencia.mp4",
+      imagenUrl: "/proyectos/influencers-ia.png",
       figmaUrl: "https://embed.figma.com/slides/LDxUXS9EZQ4gYKyfLzNSpl/Memoria-InfluencIA?node-id=1-735&embed-host=share"
     },
     {
@@ -96,6 +99,7 @@ export const proyectos: Proyecto[] = [
       categoria: 'Web',
       urlExterna: "https://valenyuge.github.io/UI-UXRedesignforSciencePlatform/index.html",
       videoUrl: "/proyectos/elgatoylacaja.mp4",
+      imagenUrl: "/proyectos/redisenio-gato.png",
       figmaUrl: "https://embed.figma.com/deck/It7Ypl2xf2cKbyq1BfZBJm/Memoria-EGYLC?node-id=1-48&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&embed-host=share"
     },
     {
@@ -111,7 +115,8 @@ export const proyectos: Proyecto[] = [
       tecnologias: ["Web Audio API", "JavaScript", "Generative Art"],
       categoria: 'Multimedia',
       urlExterna: "https://valenyuge.github.io/WebAudio-ReactiveExperience/index.html",
-      videoUrl: "/proyectos/obra-sonido.mp4"
+      videoUrl: "/proyectos/obra-sonido.mp4",
+      imagenUrl: "/proyectos/audio-reactiva.png"
     },
     {
       id: "endless-runner-js",
@@ -122,11 +127,12 @@ export const proyectos: Proyecto[] = [
       descripcion: "Motor de juego 2D desarrollado desde cero en JS puro y plataforma web desplegada en Neocities.",
       descripcion_en: "2D game engine developed from scratch in Vanilla JS and web platform deployed on Neocities.",
       contenidoLargo: "Desarrollo de un videojuego 'Endless Runner' utilizando exclusivamente JavaScript puro (Vanilla JS), sin motores externos. Programé desde cero el Game Loop, la lógica de detección de colisiones AABB y el sistema de gravedad. El proyecto se presenta en una plataforma web diseñada para contextualizar la obra, incluyendo la fundamentación narrativa, un carrusel interactivo de assets y una galería multimedia. El sitio fue desplegado en Neocities, integrando el juego mediante una arquitectura de navegación fluida que conecta la landing page con la instancia ejecutable del juego.",
-      contenidoLargo_en: "Development of an 'Endless Runner' video game using exclusively Vanilla JavaScript, without external engines. I programmed the Game Loop, AABB collision detection logic, and gravity system from scratch. The project is presented on a web platform designed to contextualize the work, including the narrative foundation, an interactive asset carousel, and a multimedia gallery. The site was deployed on Neocities, integrating the game through a fluid navigation architecture that connects the landing page with the playable instance of the game.",
+      contenidoLargo_en: "Development of an 'Endless Runner' video game using exclusively Vanilla JavaScript, without external engines. I programmed the Game Loop, AABB collision detection logic, and gravity system from scratch. The project is presented on a web platform designed to contextualize the work, including the narrative foundation, an interactive asset carousel, and a multimedia gallery. The site was deployed on Neocities, integrando el juego mediante una arquitectura de navegación fluida que conecta la landing page con la playable instance of the game.",
       tecnologias: ["JavaScript", "HTML", "CSS", "Neocities", "Game Logic"],
       categoria: 'Videojuegos',
       urlExterna: "https://valenyuge.neocities.org/",
-      videoUrl: "/proyectos/runner-html.mp4"
+      videoUrl: "/proyectos/runner-html.mp4",
+      imagenUrl: "/proyectos/endless-runner-js.png"
     },
     {
       id: "arcade-versus",
@@ -141,7 +147,8 @@ export const proyectos: Proyecto[] = [
       tecnologias: ["Unity", "C#", "Hardware Hacking", "Game Design"],
       categoria: 'Videojuegos',
       urlExterna: "",
-      videoUrl: "/proyectos/amargados.mp4"
+      videoUrl: "/proyectos/amargados.mp4",
+      imagenUrl: "/proyectos/arcade-versus.png"
     },
     {
       id: "landing-vorterix",
@@ -157,6 +164,7 @@ export const proyectos: Proyecto[] = [
       categoria: 'Web',
       urlExterna: "https://valenyuge.github.io/vorterix/index.html",
       videoUrl: "/proyectos/vorterix.mp4",
+      imagenUrl: "/proyectos/landing-vorterix.png",
       canvaUrl: "https://www.canva.com/design/DAGoab_G6qE/OuNi1EX8LkiOvj41jqFICQ/view?embed"
     },
     {
@@ -171,7 +179,7 @@ export const proyectos: Proyecto[] = [
       contenidoLargo_en: "Development of the interactive web platform Vagari for Grupo Oniria. Featuring curated art direction, smooth navigation, dynamic animations using Framer Motion, responsive design with TailwindCSS, and React architecture.",
       tecnologias: ["React", "TailwindCSS", "Framer Motion", "Vite", "JavaScript"],
       categoria: 'Web',
-      urlExterna: "https://oniria2026.github.io/Vagari",
+      urlExterna: "https://oniria2026.github.io/Vagari/",
       imagenUrl: "/proyectos/oniria.png"
     },
     {
@@ -186,7 +194,7 @@ export const proyectos: Proyecto[] = [
       contenidoLargo_en: "Design and development of the website for Tolosano football club, built from scratch using exclusively semantic HTML5, CSS3, and Vanilla JavaScript. Focused on optimal performance, accessibility, club visual identity, and cross-device compatibility without external libraries.",
       tecnologias: ["HTML", "CSS", "JavaScript"],
       categoria: 'Web',
-      urlExterna: "",
-      imagenUrl: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80"
+      urlExterna: "https://valenyuge.github.io/Maquetacion/index.html",
+      imagenUrl: "/proyectos/club-tolosano.png"
     }
   ];
