@@ -16,6 +16,16 @@
     <meta property="og:description" content="Explora mis proyectos de videojuegos, multimedia y desarrollo web.">
     <meta property="og:image" content="https://valentinyuge-portfolio.vercel.app/og-image.png"> <meta property="og:url" content="https://valentinyuge-portfolio.vercel.app/">
     <meta property="og:type" content="website">
+    <script>
+      (function() {
+        const tema = localStorage.getItem('tema');
+        if (tema === 'dark' || (!tema && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

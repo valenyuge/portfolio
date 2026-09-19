@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { proyectos } from '../data/proyectos'; 
 import SelectorIdioma from '../components/SelectorIdioma';
+import BotonTema from '../components/BotonTema';
 import SeccionContacto from '../components/SeccionContacto';
 import VisualizadorDocumento from '../components/VisualizadorDocumento';
 
@@ -40,7 +41,8 @@ const DetalleProyecto = () => {
   const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
 
   return (
-    <div className="min-h-screen bg-stone-100 dark:bg-stone-900 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative">
+    <div className="min-h-screen bg-stone-100 dark:bg-stone-900 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative transition-colors duration-300">
+      <BotonTema />
       <SelectorIdioma />
       
       {mostrarScroll && (

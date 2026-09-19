@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { type Proyecto } from '../data/proyectos'; 
 import SelectorIdioma from '../components/SelectorIdioma';
+import BotonTema from '../components/BotonTema';
 import SeccionContacto from '../components/SeccionContacto';
 
 const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
@@ -19,7 +20,8 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
-    <div className="min-h-screen bg-stone-100 dark:bg-stone-900 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative">
+    <div className="min-h-screen bg-stone-100 dark:bg-stone-900 p-4 md:p-8 text-stone-900 dark:text-stone-100 font-sans relative transition-colors duration-300">
+      <BotonTema />
       <SelectorIdioma />
       <header className="max-w-5xl mx-auto text-center mb-16 pt-12 md:pt-0"> 
         <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-stone-600 to-stone-400 dark:from-stone-300 dark:to-stone-500 bg-clip-text text-transparent">Valentin Yuge</h1>
@@ -36,7 +38,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               'Multimedia': i18n.language.startsWith('es') ? 'Multimedia' : 'Multimedia'
             };
             return (
-              <button key={cat} onClick={() => setFiltro(cat)} className={`whitespace-nowrap px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${filtro === cat ? 'bg-stone-800 dark:bg-stone-200 text-stone-100 dark:text-stone-900 border-stone-800 dark:border-stone-200 shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 scale-105 text-stone-900 dark:text-stone-100' : 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700'}`}>
+              <button key={cat} onClick={() => setFiltro(cat)} className={`whitespace-nowrap px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 border ${filtro === cat ? 'bg-stone-800 dark:bg-stone-200 text-stone-100 dark:text-stone-900 border-stone-800 dark:border-stone-200 shadow-lg shadow-stone-900/10 dark:shadow-stone-200/10 scale-105' : 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-700'}`}>
                 {traducciones[cat]}
               </button>
             );
