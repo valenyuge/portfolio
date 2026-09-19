@@ -16,6 +16,7 @@ export interface Proyecto {
   canvaUrl?: string;
   figmaUrl?: string;
   bitacoraUrl?: string;
+  enProceso?: boolean;
 }
 
 export const proyectos: Proyecto[] = [
@@ -181,7 +182,8 @@ export const proyectos: Proyecto[] = [
       tecnologias: ["React", "TailwindCSS", "Framer Motion", "Vite", "JavaScript"],
       categoria: 'Web',
       urlExterna: "https://oniria2026.github.io/Vagari/",
-      imagenUrl: "/proyectos/oniria.png"
+      imagenUrl: "/proyectos/oniria.png",
+      enProceso: true
     },
     {
       id: "club-tolosano",

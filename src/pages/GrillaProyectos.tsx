@@ -12,8 +12,13 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
 
   const proyectosOrdenados = [...proyectos].sort((a, b) => new Date(b.fechaFin).getTime() - new Date(a.fechaFin).getTime());
   
-  const formatearPeriodo = (inicio: string, fin: string) => {
+  const formatearPeriodo = (inicio: string, fin: string, enProceso?: boolean) => {
     const limpiar = (f: string) => f.split('-').reverse().join('/');
+    if (enProceso) {
+      return i18n.language.startsWith('es') 
+        ? `${limpiar(inicio)} — En proceso` 
+        : `${limpiar(inicio)} — In progress`;
+    }
     return inicio === fin ? limpiar(inicio) : `${limpiar(inicio)} — ${limpiar(fin)}`;
   };
 
@@ -76,7 +81,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
                 {p.categoria}
               </span>
               <span className="text-[#c5baa7] dark:text-stone-500 text-[11px] font-bold">
-                {formatearPeriodo(p.fechaInicio, p.fechaFin)}
+                {formatearPeriodo(p.fechaInicio, p.fechaFin, p.enProceso)}
               </span>
             </div>
 

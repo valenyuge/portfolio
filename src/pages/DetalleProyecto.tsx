@@ -64,9 +64,20 @@ const DetalleProyecto = () => {
         </Link>
         
         <div className="mb-10">
-            <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-stone-900 dark:bg-[#fdf6e3] text-[#fdf6e3] dark:text-stone-900 rounded-md border border-stone-800 dark:border-[#d6cbbb]">
-                {p.categoria}
-            </span>
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-stone-900 dark:bg-[#fdf6e3] text-[#fdf6e3] dark:text-stone-900 rounded-md border border-stone-800 dark:border-[#d6cbbb]">
+                  {p.categoria}
+              </span>
+              <span className="text-sm font-bold text-stone-600 dark:text-[#d6cfc2]">
+                {p.enProceso 
+                  ? `${p.fechaInicio.split('-').reverse().join('/')} — ${i18n.language.startsWith('es') ? 'En proceso' : 'In progress'}`
+                  : (p.fechaInicio === p.fechaFin 
+                      ? p.fechaInicio.split('-').reverse().join('/') 
+                      : `${p.fechaInicio.split('-').reverse().join('/')} — ${p.fechaFin.split('-').reverse().join('/')}`
+                    )
+                }
+              </span>
+            </div>
             <h1 className="text-5xl font-black mt-4 mb-6 text-stone-900 dark:text-[#fdf6e3]">
               {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h1>
