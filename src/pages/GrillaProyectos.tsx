@@ -77,6 +77,25 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
         <>Arcade: <br /> Amargados 1v1</>
       );
     }
+    if (p.id === 'redisenio-gato') {
+      return isEs ? (
+        <>Rediseño <br /> 'El Gato y la Caja'</>
+      ) : (
+        <>'El Gato y la Caja' <br /> Redesign</>
+      );
+    }
+    if (p.id === 'landing-vorterix') {
+      return isEs ? (
+        <>Landing Page <br /> 'Vorterix'</>
+      ) : (
+        <>'Vorterix' <br /> Landing Page</>
+      );
+    }
+    if (p.id === 'endless-runner-js') {
+      return (
+        <>Vanilla JS <br /> Runner & Web</>
+      );
+    }
     return texto;
   };
 
