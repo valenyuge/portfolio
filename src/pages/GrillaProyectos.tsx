@@ -31,6 +31,55 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
     return cat;
   };
 
+  const renderTituloCard = (p: Proyecto) => {
+    const isEs = i18n.language.startsWith('es');
+    const texto = isEs ? p.titulo : (p.titulo_en || p.titulo);
+    
+    if (p.id === 'todo-list') {
+      return isEs ? (
+        <>Gestor de Tareas <br /> Full Stack</>
+      ) : (
+        <>Full Stack <br /> Task Manager</>
+      );
+    }
+    if (p.id === 'runner-vr') {
+      return isEs ? (
+        <>Hora Pico: <br /> Unity VR Mobile</>
+      ) : (
+        <>Rush Hour: <br /> Unity Mobile VR</>
+      );
+    }
+    if (p.id === 'influencers-ia') {
+      return isEs ? (
+        <>InfluencIA: <br /> Instalación Física</>
+      ) : (
+        <>InfluencIA: <br /> Physical Installation</>
+      );
+    }
+    if (p.id === 'win98') {
+      return isEs ? (
+        <>OS Interactivo: <br /> Historia de la IA</>
+      ) : (
+        <>Interactive OS: <br /> History of AI</>
+      );
+    }
+    if (p.id === 'audio-reactiva') {
+      return isEs ? (
+        <>Voice Brush: <br /> Arte Generativo</>
+      ) : (
+        <>Voice Brush: <br /> Generative Art</>
+      );
+    }
+    if (p.id === 'arcade-versus') {
+      return isEs ? (
+        <>Arcade: <br /> Amargados 1v1</>
+      ) : (
+        <>Arcade: <br /> Amargados 1v1</>
+      );
+    }
+    return texto;
+  };
+
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
@@ -106,9 +155,9 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               </span>
             </div>
 
-            {/* Título en Clash Display Bold */}
-            <h2 className="font-clash font-bold text-xl md:text-2xl tracking-tight mb-2.5 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug">
-              {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
+            {/* Título más fino y con espaciado relajado */}
+            <h2 className="font-clash font-medium text-lg md:text-xl tracking-normal mb-3 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-relaxed min-h-[3.2rem]">
+              {renderTituloCard(p)}
             </h2>
 
             {/* Descripción en Geist */}
@@ -121,13 +170,13 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               {p.tecnologias.slice(0, 4).map(tech => (
                 <span 
                   key={tech} 
-                  className="font-mono text-[11px] font-medium bg-[#282622] text-[#F3EFE6] px-2.5 py-1 rounded border border-[#38352F] group-hover:border-[#C25E2E]/30 transition-colors"
+                  className="font-mono text-[11px] font-normal bg-[#282622] text-[#F3EFE6] px-2.5 py-1 rounded border border-[#38352F] group-hover:border-[#C25E2E]/30 transition-colors"
                 >
                   {tech}
                 </span>
               ))}
               {p.tecnologias.length > 4 && (
-                <span className="font-mono text-[11px] font-medium text-[#A39E93] py-1">+ {p.tecnologias.length - 4}</span>
+                <span className="font-mono text-[11px] font-normal text-[#A39E93] py-1">+ {p.tecnologias.length - 4}</span>
               )}
             </div>
 

@@ -33,7 +33,7 @@ const BarraNavegacion = () => {
   return (
     <nav 
       aria-label="Barra de navegación y configuración"
-      className="fixed top-4 md:top-6 right-4 md:right-8 z-50 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F3EFE6]/80 dark:bg-[#1E1D1A]/85 backdrop-blur-md border border-stone-300/80 dark:border-[#2C2A26] shadow-lg shadow-black/5 dark:shadow-black/40 transition-all duration-300"
+      className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:translate-x-0 z-50 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F3EFE6]/80 dark:bg-[#1E1D1A]/85 backdrop-blur-md border border-stone-300/80 dark:border-[#2C2A26] shadow-lg shadow-black/5 dark:shadow-black/40 transition-all duration-300"
     >
       {/* Selector de idioma */}
       <div className="flex items-center gap-1">
