@@ -39,7 +39,7 @@ const SeccionContacto = () => {
 
   return (
     <footer className="max-w-4xl mx-auto mt-28 mb-16 text-center border-t border-stone-300 dark:border-[#2C2A26] pt-16">
-      <h2 className="font-clash font-semibold text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4 text-stone-900 dark:text-[#F3EFE6]">
+      <h2 className="font-clash font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight mb-3 text-stone-900 dark:text-[#F3EFE6]">
         {t('contacto_tit')}
       </h2>
       <p className="text-stone-700 dark:text-[#A39E93] mb-8 text-sm md:text-base max-w-xl mx-auto leading-relaxed">

@@ -96,14 +96,14 @@ const DetalleProyecto = () => {
               }
             </span>
           </div>
-          <h1 className="font-clash font-semibold text-3xl sm:text-4xl md:text-5xl tracking-tight text-stone-900 dark:text-[#F3EFE6] leading-tight">
+          <h1 className="font-clash font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-stone-900 dark:text-[#F3EFE6] leading-tight mb-4">
             {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
           </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-start">
           <div className="lg:col-span-5 space-y-6">
-            <h3 className="font-clash font-semibold text-lg md:text-xl tracking-tight text-stone-900 dark:text-[#F3EFE6]">
+            <h3 className="font-clash font-bold text-lg md:text-xl tracking-tight text-stone-900 dark:text-[#F3EFE6]">
               {t('sobre')}
             </h3>
             <p className="font-geist text-stone-800 dark:text-[#A39E93] text-base md:text-lg leading-relaxed">
@@ -111,7 +111,7 @@ const DetalleProyecto = () => {
             </p>
             
             <div className="pt-4">
-              <h3 className="font-clash font-semibold text-xs md:text-sm tracking-wide text-stone-600 dark:text-[#A39E93] uppercase mb-4">
+              <h3 className="font-clash font-bold text-xs md:text-sm tracking-wide text-stone-600 dark:text-[#A39E93] uppercase mb-4">
                 {t('tech')}
               </h3>
               <div className="flex flex-wrap gap-2">

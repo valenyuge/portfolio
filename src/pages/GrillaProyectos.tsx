@@ -87,7 +87,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
       <BarraNavegacion />
       
       <header className="max-w-5xl mx-auto text-center mb-16 pt-16 md:pt-14"> 
-        <h1 className="font-clash font-semibold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-4 py-2 bg-linear-to-r from-stone-900 to-stone-700 dark:from-[#F3EFE6] dark:to-[#A39E93] bg-clip-text text-transparent">
+        <h1 className="font-clash font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-2 py-1 bg-linear-to-r from-stone-900 to-stone-700 dark:from-[#F3EFE6] dark:to-[#A39E93] bg-clip-text text-transparent">
           Valentin Yuge
         </h1>
         <p className="font-geist text-stone-700 dark:text-[#A39E93] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
@@ -155,8 +155,8 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               </span>
             </div>
 
-            {/* Título en Clash Display Semibold con espaciado entre letras */}
-            <h2 className="font-clash font-semibold text-lg md:text-xl tracking-wide mb-2.5 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug min-h-[3rem]">
+            {/* Título en Clash Display Bold */}
+            <h2 className="font-clash font-bold text-xl md:text-2xl tracking-tight mb-2.5 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug">
               {renderTituloCard(p)}
             </h2>
 
