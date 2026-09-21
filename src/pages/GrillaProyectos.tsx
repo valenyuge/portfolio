@@ -34,14 +34,14 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
-    <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] p-4 md:p-8 text-stone-900 dark:text-[#F3EFE6] font-sans relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] p-4 md:p-8 text-stone-900 dark:text-[#F3EFE6] font-geist relative transition-colors duration-300">
       <BarraNavegacion />
       
       <header className="max-w-5xl mx-auto text-center mb-16 pt-16 md:pt-14"> 
-        <h1 className="font-ethnocentric text-2xl sm:text-3xl md:text-5xl font-normal tracking-wider mb-4 py-2 bg-linear-to-r from-stone-900 to-stone-700 dark:from-[#F3EFE6] dark:to-[#A39E93] bg-clip-text text-transparent">
+        <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight mb-4 py-2 bg-linear-to-r from-stone-900 to-stone-700 dark:from-[#F3EFE6] dark:to-[#A39E93] bg-clip-text text-transparent">
           Valentin Yuge
         </h1>
-        <p className="text-stone-700 dark:text-[#A39E93] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="font-geist text-stone-700 dark:text-[#A39E93] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           {t('subtitulo')}
         </p>
       </header>
@@ -60,7 +60,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               <button 
                 key={cat} 
                 onClick={() => setFiltro(cat)} 
-                className={`whitespace-nowrap px-3 py-1.5 text-sm transition-all duration-300 cursor-pointer ${
+                className={`font-geist whitespace-nowrap px-3 py-1.5 text-sm transition-all duration-300 cursor-pointer ${
                   esActivo 
                     ? 'font-bold underline decoration-2 decoration-[#C25E2E] underline-offset-8 text-stone-950 dark:text-[#F3EFE6]' 
                     : 'font-medium text-stone-600 dark:text-[#A39E93] hover:text-[#C25E2E] dark:hover:text-[#D96B34]'
@@ -80,7 +80,7 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
             to={`/proyecto/${p.id}`} 
             className="group block bg-[#1E1D1A] dark:bg-[#1E1D1A] hover:bg-[#252420] dark:hover:bg-[#22201D] p-6 md:p-7 rounded-xl border border-stone-800/80 dark:border-[#2C2A26] hover:border-[#C25E2E]/60 dark:hover:border-[#C25E2E]/60 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-black/15 dark:shadow-black/40"
           >
-            {/* Vista previa con borde más fino */}
+            {/* Vista previa con borde fino */}
             <div className="aspect-video w-full mb-5 overflow-hidden rounded-lg bg-[#252420] dark:bg-[#181715] relative border border-white/5 dark:border-[#2C2A26]">
               {p.imagenUrl || p.videoUrl ? (
                 <img 
@@ -96,38 +96,43 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               )}
             </div>
 
+            {/* Metadatos en JetBrains Mono */}
             <div className="flex justify-between items-start mb-3 gap-2">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C25E2E] dark:text-[#D96B34] block">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C25E2E] dark:text-[#D96B34] block">
                 {obtenerNombreCategoria(p.categoria)}
               </span>
-              <span className="text-[#A39E93] text-[11px] font-semibold shrink-0">
+              <span className="font-mono text-[#A39E93] text-[11px] font-medium shrink-0">
                 {formatearPeriodo(p.fechaInicio, p.fechaFin, p.enProceso)}
               </span>
             </div>
 
-            <h2 className="font-ethnocentric text-sm md:text-base font-normal tracking-wide mb-3 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug">
+            {/* Título en Syne Bold */}
+            <h2 className="font-syne font-bold text-xl md:text-2xl tracking-tight mb-2.5 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug">
               {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h2>
 
-            <p className="text-[#A39E93] text-sm mb-6 leading-relaxed line-clamp-2">
+            {/* Descripción en Geist */}
+            <p className="font-geist text-[#A39E93] text-sm mb-6 leading-relaxed line-clamp-2">
               {i18n.language.startsWith('es') ? p.descripcion : (p.descripcion_en || p.descripcion)}
             </p>
 
+            {/* Píldoras de tecnologías en JetBrains Mono */}
             <div className="flex flex-wrap gap-2 mb-6">
               {p.tecnologias.slice(0, 4).map(tech => (
                 <span 
                   key={tech} 
-                  className="text-[10px] font-bold bg-[#282622] text-[#F3EFE6] px-2.5 py-1 rounded border border-[#38352F] group-hover:border-[#C25E2E]/30 transition-colors"
+                  className="font-mono text-[11px] font-medium bg-[#282622] text-[#F3EFE6] px-2.5 py-1 rounded border border-[#38352F] group-hover:border-[#C25E2E]/30 transition-colors"
                 >
                   {tech}
                 </span>
               ))}
               {p.tecnologias.length > 4 && (
-                <span className="text-[10px] font-bold text-[#A39E93] py-1">+ {p.tecnologias.length - 4}</span>
+                <span className="font-mono text-[11px] font-medium text-[#A39E93] py-1">+ {p.tecnologias.length - 4}</span>
               )}
             </div>
 
-            <div className="text-[#F3EFE6] text-xs font-black tracking-widest group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors flex items-center gap-1.5">
+            {/* Botón de ver detalles en JetBrains Mono */}
+            <div className="font-mono text-xs font-bold tracking-wider text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors flex items-center gap-1.5">
               <span>{t('detalle_mas')}</span>
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
             </div>

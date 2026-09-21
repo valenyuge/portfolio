@@ -37,7 +37,7 @@ const DetalleProyecto = () => {
 
   if (!p) {
     return (
-      <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] text-stone-900 dark:text-[#F3EFE6] flex items-center justify-center font-bold">
+      <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] text-stone-900 dark:text-[#F3EFE6] font-geist flex items-center justify-center font-bold">
         404 - Proyecto no encontrado
       </div>
     );
@@ -56,7 +56,7 @@ const DetalleProyecto = () => {
   const esVideoYoutube = p.videoUrl?.includes('youtube.com') || p.videoUrl?.includes('youtu.be');
 
   return (
-    <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] p-4 md:p-8 text-stone-900 dark:text-[#F3EFE6] font-sans relative transition-colors duration-300">
+    <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] p-4 md:p-8 text-stone-900 dark:text-[#F3EFE6] font-geist relative transition-colors duration-300">
       <BarraNavegacion />
       
       {mostrarScroll && (
@@ -75,7 +75,7 @@ const DetalleProyecto = () => {
       <div className="max-w-6xl mx-auto pt-14 md:pt-10">
         <Link 
           to="/" 
-          className="text-stone-900 dark:text-[#F3EFE6] hover:text-[#C25E2E] dark:hover:text-[#D96B34] transition-colors mb-10 inline-flex items-center gap-2 font-bold group"
+          className="font-geist text-stone-900 dark:text-[#F3EFE6] hover:text-[#C25E2E] dark:hover:text-[#D96B34] transition-colors mb-10 inline-flex items-center gap-2 font-semibold group"
         >
           <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
           <span>{i18n.language.startsWith('es') ? 'Volver a la grilla' : 'Back to grid'}</span>
@@ -83,10 +83,10 @@ const DetalleProyecto = () => {
         
         <div className="mb-10">
           <div className="flex items-center gap-3 flex-wrap mb-3">
-            <span className="text-xs font-black uppercase tracking-widest px-3 py-1 bg-[#1E1D1A] text-[#F3EFE6] rounded-md border border-stone-800 dark:border-[#2C2A26]">
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-[#1E1D1A] text-[#F3EFE6] rounded-md border border-stone-800 dark:border-[#2C2A26]">
               {obtenerNombreCategoria(p.categoria)}
             </span>
-            <span className="text-sm font-bold text-stone-600 dark:text-[#A39E93]">
+            <span className="font-mono text-xs sm:text-sm font-medium text-stone-600 dark:text-[#A39E93]">
               {p.enProceso 
                 ? `${p.fechaInicio.split('-').reverse().join('/')} — ${i18n.language.startsWith('es') ? 'En proceso' : 'In progress'}`
                 : (p.fechaInicio === p.fechaFin 
@@ -96,29 +96,29 @@ const DetalleProyecto = () => {
               }
             </span>
           </div>
-          <h1 className="font-ethnocentric text-2xl sm:text-3xl md:text-5xl font-normal tracking-wide text-stone-900 dark:text-[#F3EFE6] leading-tight">
+          <h1 className="font-syne font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight text-stone-900 dark:text-[#F3EFE6] leading-tight">
             {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
           </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12 items-start">
           <div className="lg:col-span-5 space-y-6">
-            <h3 className="font-ethnocentric text-sm md:text-base font-normal tracking-wide text-stone-900 dark:text-[#F3EFE6]">
+            <h3 className="font-syne font-bold text-lg md:text-xl tracking-tight text-stone-900 dark:text-[#F3EFE6]">
               {t('sobre')}
             </h3>
-            <p className="text-stone-800 dark:text-[#A39E93] text-base md:text-lg leading-relaxed">
+            <p className="font-geist text-stone-800 dark:text-[#A39E93] text-base md:text-lg leading-relaxed">
               {i18n.language.startsWith('es') ? p.contenidoLargo : (p.contenidoLargo_en || p.contenidoLargo)}
             </p>
             
             <div className="pt-4">
-              <h3 className="font-ethnocentric text-xs md:text-sm font-normal tracking-wider text-stone-600 dark:text-[#A39E93] uppercase mb-4">
+              <h3 className="font-syne font-bold text-xs md:text-sm tracking-wide text-stone-600 dark:text-[#A39E93] uppercase mb-4">
                 {t('tech')}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {p.tecnologias.map(tech => (
                   <span 
                     key={tech} 
-                    className="bg-[#1E1D1A] text-[#F3EFE6] px-3.5 py-1.5 rounded-md text-sm border border-stone-800 dark:border-[#2C2A26] hover:border-[#C25E2E]/40 transition-colors"
+                    className="font-mono text-xs font-medium bg-[#1E1D1A] text-[#F3EFE6] px-3 py-1.5 rounded-md border border-stone-800 dark:border-[#2C2A26] hover:border-[#C25E2E]/40 transition-colors"
                   >
                     {tech}
                   </span>
@@ -132,7 +132,7 @@ const DetalleProyecto = () => {
                   href={p.bitacoraUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="bg-[#1E1D1A] text-[#F3EFE6] hover:bg-[#C25E2E] dark:hover:bg-[#C25E2E] px-8 py-3.5 rounded-xl font-bold transition-all hover:scale-105 inline-block shadow-lg border border-stone-800 dark:border-[#2C2A26] hover:border-[#C25E2E] w-full text-center md:w-auto cursor-pointer"
+                  className="font-mono text-xs md:text-sm font-bold tracking-wider bg-[#1E1D1A] text-[#F3EFE6] hover:bg-[#C25E2E] dark:hover:bg-[#C25E2E] px-8 py-3.5 rounded-xl transition-all hover:scale-105 inline-block shadow-lg border border-stone-800 dark:border-[#2C2A26] hover:border-[#C25E2E] w-full text-center md:w-auto cursor-pointer"
                 >
                   {i18n.language.startsWith('es') ? 'LEER BITÁCORA / PROCESO ↗' : 'READ CASE STUDY / LOG ↗'}
                 </a>
@@ -141,12 +141,12 @@ const DetalleProyecto = () => {
                   href={p.urlExterna} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="bg-[#1E1D1A] text-[#F3EFE6] hover:bg-[#C25E2E] dark:hover:bg-[#C25E2E] px-8 py-3.5 rounded-xl font-bold transition-all hover:scale-105 inline-block shadow-lg border border-stone-800 dark:border-[#2C2A26] hover:border-[#C25E2E] w-full text-center md:w-auto cursor-pointer"
+                  className="font-mono text-xs md:text-sm font-bold tracking-wider bg-[#1E1D1A] text-[#F3EFE6] hover:bg-[#C25E2E] dark:hover:bg-[#C25E2E] px-8 py-3.5 rounded-xl transition-all hover:scale-105 inline-block shadow-lg border border-stone-800 dark:border-[#2C2A26] hover:border-[#C25E2E] w-full text-center md:w-auto cursor-pointer"
                 >
                   {t('ver_demo')}
                 </a>
               ) : (
-                <div className="text-stone-500 dark:text-[#A39E93] text-sm font-semibold italic">
+                <div className="font-geist text-stone-500 dark:text-[#A39E93] text-sm font-medium italic">
                   {i18n.language.startsWith('es') ? "* Proyecto de hardware/offline - Documentación en video" : "* Hardware/Offline project - Video documentation only"}
                 </div>
               )}
