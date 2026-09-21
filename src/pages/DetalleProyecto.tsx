@@ -96,7 +96,7 @@ const DetalleProyecto = () => {
               }
             </span>
           </div>
-          <h1 className="font-clash font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-stone-900 dark:text-[#F3EFE6] leading-tight mb-4">
+          <h1 className="font-clash font-bold text-3xl sm:text-4xl md:text-5xl tracking-wide text-stone-900 dark:text-[#F3EFE6] leading-tight mb-4">
             {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
           </h1>
         </div>
