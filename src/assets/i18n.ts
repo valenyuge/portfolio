@@ -9,7 +9,7 @@ i18n
     resources: {
       es: {
         translation: {
-          subtitulo: "Estudiante de Diseño Multimedial @ UNLP | Desarrollador",
+          subtitulo: "Diseñador Multimedial y Frontend Developer enfocado en interfaces interactivas y experiencias digitales.",
           volver: "← Volver a la grilla",
           sobre: "Sobre el proyecto",
           tech: "Tecnologías utilizadas",
@@ -21,7 +21,7 @@ i18n
       },
       en: {
         translation: {
-          subtitulo: "Multimedia Design Student @ UNLP | Developer",
+          subtitulo: "Multimedia Designer & Frontend Developer focused on interactive interfaces and digital experiences.",
           volver: "← Back to grid",
           sobre: "About the project",
           tech: "Technologies used",

@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { type Proyecto } from '../data/proyectos'; 
-import SelectorIdioma from '../components/SelectorIdioma';
-import BotonTema from '../components/BotonTema';
+import BarraNavegacion from '../components/BarraNavegacion';
 import SeccionContacto from '../components/SeccionContacto';
 
 const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
@@ -22,31 +21,50 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
     return inicio === fin ? limpiar(inicio) : `${limpiar(inicio)} — ${limpiar(fin)}`;
   };
 
+  const obtenerNombreCategoria = (cat: string) => {
+    if (cat === 'Multimedia') {
+      return i18n.language.startsWith('es') ? 'Instalaciones & Hardware' : 'Creative Tech';
+    }
+    if (cat === 'Videojuegos') {
+      return i18n.language.startsWith('es') ? 'Videojuegos' : 'Games';
+    }
+    return cat;
+  };
+
   const filtrados = filtro === 'Todos' ? proyectosOrdenados : proyectosOrdenados.filter(p => p.categoria === filtro);
 
   return (
-    <div className="min-h-screen bg-[#fdf6e3] dark:bg-stone-950 p-4 md:p-8 text-stone-900 dark:text-[#fdf6e3] font-sans relative transition-colors duration-300">
-      <BotonTema />
-      <SelectorIdioma />
-      <header className="max-w-5xl mx-auto text-center mb-16 pt-12 md:pt-0"> 
-        <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 bg-linear-to-r from-stone-800 to-stone-600 dark:from-[#fdf6e3] dark:to-stone-400 bg-clip-text text-transparent">Valentin Yuge</h1>
-        <p className="text-stone-700 dark:text-[#d6cfc2] text-base md:text-lg">{t('subtitulo')}</p>
+    <div className="min-h-screen bg-[#F3EFE6] dark:bg-[#141312] p-4 md:p-8 text-stone-900 dark:text-[#F3EFE6] font-sans relative transition-colors duration-300">
+      <BarraNavegacion />
+      
+      <header className="max-w-5xl mx-auto text-center mb-16 pt-16 md:pt-14"> 
+        <h1 className="font-ethnocentric text-2xl sm:text-3xl md:text-5xl font-normal tracking-wider mb-4 py-2 bg-linear-to-r from-stone-900 to-stone-700 dark:from-[#F3EFE6] dark:to-[#A39E93] bg-clip-text text-transparent">
+          Valentin Yuge
+        </h1>
+        <p className="text-stone-700 dark:text-[#A39E93] text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          {t('subtitulo')}
+        </p>
       </header>
 
       <nav className="relative max-w-full overflow-hidden mb-12 md:mb-16">
-        <div className="flex overflow-x-auto no-scrollbar pb-4 gap-3 px-4 md:justify-center">
+        <div className="flex overflow-x-auto no-scrollbar pb-4 gap-4 px-4 md:justify-center">
           {['Todos', 'Web', 'Videojuegos', 'Multimedia'].map(cat => {
             const traducciones: Record<string, string> = {
               'Todos': i18n.language.startsWith('es') ? 'Todos' : 'All',
               'Web': 'Web',
               'Videojuegos': i18n.language.startsWith('es') ? 'Videojuegos' : 'Games',
-              'Multimedia': i18n.language.startsWith('es') ? 'Multimedia' : 'Multimedia'
+              'Multimedia': i18n.language.startsWith('es') ? 'Instalaciones & Hardware' : 'Creative Tech'
             };
+            const esActivo = filtro === cat;
             return (
               <button 
                 key={cat} 
                 onClick={() => setFiltro(cat)} 
-                className={`whitespace-nowrap px-4 py-2 text-sm transition-all duration-300 ${filtro === cat ? 'font-bold underline decoration-2 underline-offset-8 text-stone-900 dark:text-[#fdf6e3]' : 'font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-[#fdf6e3]'}`}
+                className={`whitespace-nowrap px-3 py-1.5 text-sm transition-all duration-300 cursor-pointer ${
+                  esActivo 
+                    ? 'font-bold underline decoration-2 decoration-[#C25E2E] underline-offset-8 text-stone-950 dark:text-[#F3EFE6]' 
+                    : 'font-medium text-stone-600 dark:text-[#A39E93] hover:text-[#C25E2E] dark:hover:text-[#D96B34]'
+                }`}
               >
                 {traducciones[cat]}
               </button>
@@ -60,10 +78,10 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
           <Link 
             key={p.id} 
             to={`/proyecto/${p.id}`} 
-            className="group block bg-stone-900 dark:bg-[#fdf6e3] hover:bg-stone-950 dark:hover:bg-[#f2ead3] p-6 md:p-7 rounded-xl border border-stone-800 dark:border-[#e0d6c3] hover:border-stone-600 dark:hover:border-stone-400 transition-all duration-300 hover:-translate-y-2 shadow-lg"
+            className="group block bg-[#1E1D1A] dark:bg-[#1E1D1A] hover:bg-[#252420] dark:hover:bg-[#22201D] p-6 md:p-7 rounded-xl border border-stone-800/80 dark:border-[#2C2A26] hover:border-[#C25E2E]/60 dark:hover:border-[#C25E2E]/60 transition-all duration-300 hover:-translate-y-2 shadow-xl shadow-black/15 dark:shadow-black/40"
           >
-            
-            <div className="aspect-video w-full mb-5 overflow-hidden rounded-lg bg-stone-800 dark:bg-[#f2ead3] relative">
+            {/* Vista previa con borde más fino */}
+            <div className="aspect-video w-full mb-5 overflow-hidden rounded-lg bg-[#252420] dark:bg-[#181715] relative border border-white/5 dark:border-[#2C2A26]">
               {p.imagenUrl || p.videoUrl ? (
                 <img 
                   src={p.imagenUrl || `/proyectos/${p.id}.png`} 
@@ -72,24 +90,26 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
                   onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80'; }} 
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-[#c5baa7] dark:text-stone-500 font-bold">{p.titulo}</div>
+                <div className="w-full h-full flex items-center justify-center text-[#A39E93] font-bold p-4 text-center">
+                  {p.titulo}
+                </div>
               )}
             </div>
 
-            <div className="flex justify-between items-start mb-3">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#d8cfbe] dark:text-stone-600 block">
-                {p.categoria}
+            <div className="flex justify-between items-start mb-3 gap-2">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C25E2E] dark:text-[#D96B34] block">
+                {obtenerNombreCategoria(p.categoria)}
               </span>
-              <span className="text-[#c5baa7] dark:text-stone-500 text-[11px] font-bold">
+              <span className="text-[#A39E93] text-[11px] font-semibold shrink-0">
                 {formatearPeriodo(p.fechaInicio, p.fechaFin, p.enProceso)}
               </span>
             </div>
 
-            <h2 className="text-2xl font-black mb-3 text-[#fdf6e3] dark:text-stone-900 group-hover:text-[#dfd7c8] dark:group-hover:text-stone-700 transition-colors">
+            <h2 className="font-ethnocentric text-sm md:text-base font-normal tracking-wide mb-3 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug">
               {i18n.language.startsWith('es') ? p.titulo : (p.titulo_en || p.titulo)}
             </h2>
 
-            <p className="text-[#e0d8cb] dark:text-stone-700 text-sm mb-6 leading-relaxed line-clamp-2">
+            <p className="text-[#A39E93] text-sm mb-6 leading-relaxed line-clamp-2">
               {i18n.language.startsWith('es') ? p.descripcion : (p.descripcion_en || p.descripcion)}
             </p>
 
@@ -97,20 +117,24 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               {p.tecnologias.slice(0, 4).map(tech => (
                 <span 
                   key={tech} 
-                  className="text-[10px] font-bold bg-stone-800 dark:bg-[#f2ead3] text-[#fdf6e3] dark:text-stone-800 px-2.5 py-1 rounded border border-stone-700 dark:border-[#d6cbbb]"
+                  className="text-[10px] font-bold bg-[#282622] text-[#F3EFE6] px-2.5 py-1 rounded border border-[#38352F] group-hover:border-[#C25E2E]/30 transition-colors"
                 >
                   {tech}
                 </span>
               ))}
               {p.tecnologias.length > 4 && (
-                <span className="text-[10px] font-bold text-[#c5baa7] dark:text-stone-500 py-1">+ {p.tecnologias.length - 4}</span>
+                <span className="text-[10px] font-bold text-[#A39E93] py-1">+ {p.tecnologias.length - 4}</span>
               )}
             </div>
 
-            <div className="text-[#fdf6e3] dark:text-stone-900 text-xs font-black tracking-widest group-hover:underline">{t('detalle_mas')}</div>
+            <div className="text-[#F3EFE6] text-xs font-black tracking-widest group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors flex items-center gap-1.5">
+              <span>{t('detalle_mas')}</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </div>
           </Link>
         ))}
       </main>
+
       <SeccionContacto />
     </div>
   );

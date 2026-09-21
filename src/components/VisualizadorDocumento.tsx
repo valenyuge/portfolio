@@ -3,10 +3,10 @@ const VisualizadorDocumento = ({ url, titulo }: { url?: string, titulo: string }
 
   return (
     <div className="mt-16 space-y-6 w-full"> 
-      <h3 className="text-xl font-bold text-stone-900 dark:text-[#fdf6e3] border-b border-stone-300 dark:border-stone-800 pb-4 tracking-tight">
+      <h3 className="font-ethnocentric text-sm sm:text-base md:text-lg font-normal tracking-wide text-stone-900 dark:text-[#F3EFE6] border-b border-stone-300 dark:border-[#2C2A26] pb-4">
         {titulo}
       </h3>
-      <div className="relative w-full aspect-video overflow-hidden rounded-xl border border-stone-800 dark:border-[#d6cbbb] bg-stone-900 dark:bg-[#fdf6e3] shadow-2xl">
+      <div className="relative w-full aspect-video overflow-hidden rounded-xl border border-stone-800/80 dark:border-[#2C2A26] bg-[#1E1D1A] shadow-2xl">
         <iframe
           loading="lazy"
           src={url}
