@@ -155,8 +155,8 @@ const GrillaProyectos = ({ proyectos }: { proyectos: Proyecto[] }) => {
               </span>
             </div>
 
-            {/* Título en Clash Display Semibold con espaciado relajado */}
-            <h2 className="font-clash font-semibold text-lg md:text-xl tracking-normal mb-3 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-relaxed min-h-[3.2rem]">
+            {/* Título en Clash Display Semibold con espaciado entre letras */}
+            <h2 className="font-clash font-semibold text-lg md:text-xl tracking-wide mb-2.5 text-[#F3EFE6] group-hover:text-[#C25E2E] dark:group-hover:text-[#D96B34] transition-colors leading-snug min-h-[3rem]">
               {renderTituloCard(p)}
             </h2>
 
