@@ -42,7 +42,7 @@ const SeccionContacto = () => {
       <h2 className="font-ethnocentric text-lg sm:text-xl md:text-2xl font-normal tracking-wide mb-4 text-stone-900 dark:text-[#F3EFE6]">
         {t('contacto_tit')}
       </h2>
-      <p className="text-stone-700 dark:text-[#A39E93] mb-8 text-sm md:text-base max-w-md mx-auto">
+      <p className="text-stone-700 dark:text-[#A39E93] mb-8 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
         {t('contacto_desc')}
       </p>
       <div className="flex justify-center flex-wrap gap-4 md:gap-6">

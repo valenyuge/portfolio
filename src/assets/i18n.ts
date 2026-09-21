@@ -16,7 +16,7 @@ i18n
           ver_demo: "VER REPOSITORIO / DEMO ↗",
           detalle_mas: "VER DETALLES +",
           contacto_tit: "Contacto",
-          contacto_desc: "Estoy disponible para proyectos freelance y posiciones Junior."
+          contacto_desc: "¿Tenés una idea o proyecto en mente? Escribime. Estoy disponible para trabajos freelance y nuevas oportunidades laborales."
         }
       },
       en: {
@@ -28,7 +28,7 @@ i18n
           ver_demo: "VIEW REPOSITORY / DEMO ↗",
           detalle_mas: "VIEW DETAILS +",
           contacto_tit: "Contact me",
-          contacto_desc: "Available for freelance projects and Junior positions."
+          contacto_desc: "Have an idea or project in mind? Reach out. I'm available for freelance work and new opportunities."
         }
       }
     },
